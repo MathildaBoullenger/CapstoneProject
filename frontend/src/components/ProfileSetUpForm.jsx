@@ -1,9 +1,22 @@
-import React, { useContext } from 'react';
-import { Typography, TextField, Button, Grid } from '@mui/material';
-import { ProfileContext } from './ProfileContext';
+import React, { useState, useContext } from "react";
+import { Typography, TextField, Button, Grid } from "@mui/material";
 
 const ProfileSetupForm = () => {
-  const { profilePicture, bio, handleProfilePictureChange, handleBioChange, resetForm } = useContext(ProfileContext);
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [bio, setBio] = useState('');
+
+  const handleProfilePictureChange = (file) => {
+    setProfilePicture(file);
+  };
+
+  const handleBioChange = (event) => {
+    setBio(event.target.value);
+  };
+
+  const resetForm = () => {
+    setProfilePicture(null);
+    setBio('');
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,8 +40,42 @@ const ProfileSetupForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} direction="column" alignItems="center">
-        {/* Form fields and submit button */}
+      <Grid container spacing={2} justifyContent="center">
+        <Grid item xs={12}>
+              <Typography variant="h5" align="center">
+                Welcome to coLab!
+              </Typography>
+          <Typography variant="body1" align="center">
+            To join groups, please upload a picture of yourself and enter a
+            short bio.
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          {previewURL && (
+            <img
+              src={previewURL}
+              alt="Preview"
+              style={{ width: "200px", height: "200px" }}
+            />
+          )}
+          <input type="file" accept="image/*" onChange={handleFileChange} />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Short Bio"
+            variant="outlined"
+            value={bio}
+            onChange={handleBioChange}
+            fullWidth
+            multiline
+            rows={4}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button type="submit" variant="contained" color="primary">
+            Save
+          </Button>
+        </Grid>
       </Grid>
     </form>
   );

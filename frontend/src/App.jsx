@@ -2,23 +2,26 @@ import "./App.css";
 import WelcomeComponent from "./components/WelcomeComponent";
 import LoginForm from "./components/LoginForm";
 import ProfileSetupForm from "./components/ProfileSetUpForm";
-import SignUpForm from "./components/SignUpForm";
+import RegistrationForm from "./components/RegistrationForm";
 import { Routes, Route } from "react-router-dom";
-import { RegistrationProvider } from "./components/RegistrationContext";
-import { ProfileProvider } from "./components/ProfileContext";
+import HobbyList from "./components/HobbyList";
+import FacebookAccountForm from "./components/FacebookAccountForm";
+import AddActivityForm from "./components/AddActivityForm";
+/*import UpdateProfileForm from "./components/End/UpdateProfileForm";*/
 
 function App() {
   return (
     <>
-      <RegistrationProvider>
-        <ProfileProvider>
-          <Routes>
-            <Route exact path="/" element={<WelcomeComponent />} />
-            <Route exact path="/login" element={<LoginForm />} />
-            <Route exact path="/signup" element={<SignUpForm />} />
-          </Routes>
-        </ProfileProvider>
-      </RegistrationProvider>
+      <Routes>
+        <Route exact path="/" element={<WelcomeComponent />} />
+        <Route exact path="/login" element={<LoginForm />} />
+        <Route exact path="/signup" element={<RegistrationForm />} />
+        <Route exact path="/hobbies" element={<HobbyList />} />
+        <Route exact path="/profile" element={<ProfileSetupForm />} />
+        <Route exact path="/facebook" element={<FacebookAccountForm />} />
+        <Route exact path="/add" element={<AddActivityForm />} />
+        {/*<Route exact path="/update" element={<UpdateProfileForm />} />*/}
+      </Routes>
     </>
   );
 }

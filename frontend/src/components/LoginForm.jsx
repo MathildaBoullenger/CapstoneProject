@@ -25,7 +25,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} justifyContent="center">
+      <Grid container spacing={2} direction="column" alignItems="center">
         <Grid item xs={12}>
           <TextField
             label="Email"

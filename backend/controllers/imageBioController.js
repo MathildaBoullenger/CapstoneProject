@@ -1,10 +1,12 @@
 const Models = require("../models");
-const upload = require('../controllers/multerConfig')
+//const upload = require('../controllers/multerConfig')
 
 const saveProfile = async (req, res) => {
   try {
     const { bio, username, password } = req.body;
+    console.log('first log in image/bio:', req.body);
     const { path: profilePicturePath, originalname: profilePictureName } = req.file;
+    console.log('second log in image/bio:', req.file);
 
     console.log("profilePicturePath:", profilePicturePath);
     console.log("profilePictureName:", profilePictureName);
@@ -18,11 +20,14 @@ const saveProfile = async (req, res) => {
       { where: { username, password } }
     );*/}
 
-    Models.sequelize.sync().then(async () => {
+    Models.UsersModel.sequelize.sync().then(async () => {
     const user = await Models.UsersModel.findOne({ where: { username, password } });
     if (user) {
+      console.log('try adding to database:', user)
       user.pic = profilePictureName;
+      console.log('new user pic:', user.pic)
       user.bio = bio;
+      console.log('new user bio:', user.bio)
       await user.save();
     }});
 

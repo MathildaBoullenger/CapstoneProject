@@ -7,13 +7,11 @@ import { Routes, Route } from "react-router-dom";
 import HobbyList from "./components/HobbyList";
 import FacebookAccountForm from "./components/FacebookAccountForm";
 import AddActivityForm from "./components/AddActivityForm";
-import { UserProvider } from "./components/CredentialsContext";
 /*import UpdateProfileForm from "./components/End/UpdateProfileForm";*/
 
 function App() {
   return (
     <>
-    <UserProvider>
         <Routes>
           <Route exact path="/" element={<WelcomeComponent />} />
           <Route exact path="/login" element={<LoginForm />} />
@@ -23,8 +21,7 @@ function App() {
           <Route exact path="/facebook" element={<FacebookAccountForm />} />
           <Route exact path="/add" element={<AddActivityForm />} />
           {/*<Route exact path="/update" element={<UpdateProfileForm />} />*/}
-        </Routes>
-    </UserProvider>    
+        </Routes>   
     </>
   );
 }

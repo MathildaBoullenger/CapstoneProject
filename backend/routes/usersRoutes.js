@@ -15,6 +15,7 @@ router.post('/profile', upload.single('profilePicture'), (req, res) => {
   controllers.imagBioController.saveProfile(req, res);
 });
 
+{/*}
 router.get('/images/:imageName', (req, res) => {
   controllers.imagesController.getImage(req, res);
 });
@@ -22,5 +23,6 @@ router.get('/images/:imageName', (req, res) => {
 router.post('/api/images', (req, res) => {
   controllers.imagesController.uploadImage(req, res);
 });
+*/}
 
 module.exports = router;

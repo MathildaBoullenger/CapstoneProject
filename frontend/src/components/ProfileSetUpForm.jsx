@@ -4,14 +4,12 @@ import axios from "axios";
 import { UserContext } from "./CredentialsContext";
 
 const ProfileSetupForm = () => {
-  const { setUserCredentials } = useContext(UserContext);
   const [profilePicture, setProfilePicture] = useState(null);
-  const [imageName, setImageName] = useState()
   const [bio, setBio] = useState("");
 
   const { username, password } = useContext(UserContext);
-  console.log(username);
-  console.log(password);
+  console.log('first log', username);
+  console.log('second log', password);
 
   const handleProfilePictureChange = (file) => {
     setProfilePicture(file);
@@ -55,8 +53,6 @@ const ProfileSetupForm = () => {
         }
       );
 
-      setImageName(response.data.imageName)
-
       console.log(response.data); // Log or handle the response as needed
     } catch (error) {
       console.error("Error saving profile information:", error);
@@ -76,21 +72,6 @@ const ProfileSetupForm = () => {
 
   const [previewURL, setPreviewURL] = useState(null);
 
-  useEffect(() => {
-    sessionStorage.setItem("username", username);
-    sessionStorage.setItem("password", password);
-  }, [username, password]);
-
-  // Retrieve username and password from session storage
-  useEffect(() => {
-    const storedUsername = sessionStorage.getItem("username");
-    const storedPassword = sessionStorage.getItem("password");
-
-    // Update the context values if they exist in session storage
-    if (storedUsername && storedPassword) {
-      setUserCredentials(storedUsername, storedPassword);
-    }
-  }, []);
 
   return (
     <form onSubmit={handleSubmit} encType="multipart/form-data">

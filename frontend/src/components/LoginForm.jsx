@@ -1,25 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField, Button, Grid } from '@mui/material';
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from './CredentialsContext';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
+  const { setUserCredentials } = useContext(UserContext);
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const navigate = useNavigate();
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Add your login logic here, e.g., send login request to server
 
+    const loginData = {
+      username,
+      password,
+    };
+    console.log(loginData)
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/login-token', loginData);
+      // Handle the response from the server
+      console.log(response.data); // Log the response data or perform further actions
+      localStorage.setItem('accessToken', response.data);
+      setUserCredentials(username, password);
+      navigate('/hobbies')
+    } catch (error) {
+      // Handle errors
+      console.error(error);
+    }
     // Reset the form after submission
-    setEmail('');
+    setUsername('');
     setPassword('');
   };
 
@@ -28,10 +51,10 @@ const LoginForm = () => {
       <Grid container spacing={2} direction="column" alignItems="center">
         <Grid item xs={12}>
           <TextField
-            label="Email"
+            label="username"
             variant="outlined"
-            value={email}
-            onChange={handleEmailChange}
+            value={username}
+            onChange={handleUsernameChange}
             fullWidth
           />
         </Grid>
@@ -52,6 +75,8 @@ const LoginForm = () => {
         </Grid>
       </Grid>
     </form>
+
+    
   );
 };
 

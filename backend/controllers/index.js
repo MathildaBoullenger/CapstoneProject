@@ -1,4 +1,7 @@
 module.exports = {
-    usersController: require("./usersController"),
+    registrationsController: require("./registrationsController"),
+    loginController: require("./loginController"),
+    imagBioController: require("./imageBioController"),
+    imagesController: require("./imagesController")
   };
   

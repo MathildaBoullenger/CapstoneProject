@@ -2,6 +2,7 @@ import React from "react";
 import HobbyTile from "./HobbyTile";
 import placeholderImage from "../assets/hobbyplaceholderimage.jpg";
 import { Grid, Typography } from "@mui/material";
+import { useState } from "react";
 
 const HobbyList = ({ onHobbyClick }) => {
   const [selectedHobby, setSelectedHobby] = useState(null);

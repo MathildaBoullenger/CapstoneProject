@@ -9,6 +9,7 @@ app.use(cors({ optionsSuccessStatus: 200 }));
 
 // parse requests of content-type - application / json;
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to my MySQL application." });

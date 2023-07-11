@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextField, Button, Grid } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "./CredentialsContext";
 
 const RegistrationForm = () => {
+  const { setUserCredentials } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -37,19 +42,26 @@ const RegistrationForm = () => {
       email,
       password,
     };
-    console.log(registrationData)
+    console.log(registrationData);
 
     try {
       await axios.post("http://localhost:3000/api/register", registrationData);
       alert("Registration successful!");
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
+
+      sessionStorage.setItem("username", username);
+      sessionStorage.setItem("password", password);
+
+      setUserCredentials(username, password);
+      navigate("./profile");
     } catch (error) {
       console.error("Registration failed:", error);
       alert("Registration failed. Please try again.");
     }
+
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
   };
 
   return (

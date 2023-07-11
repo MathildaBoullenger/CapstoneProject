@@ -1,9 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Typography, TextField, Button, Grid } from "@mui/material";
+import axios from "axios";
+import { UserContext } from "./CredentialsContext";
 
 const ProfileSetupForm = () => {
+  const { setUserCredentials } = useContext(UserContext);
   const [profilePicture, setProfilePicture] = useState(null);
-  const [bio, setBio] = useState('');
+  const [imageName, setImageName] = useState()
+  const [bio, setBio] = useState("");
+
+  const { username, password } = useContext(UserContext);
+  console.log(username);
+  console.log(password);
 
   const handleProfilePictureChange = (file) => {
     setProfilePicture(file);
@@ -15,15 +23,45 @@ const ProfileSetupForm = () => {
 
   const resetForm = () => {
     setProfilePicture(null);
-    setBio('');
+    setBio("");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Handle form submission, e.g., upload profile picture and save bio
+    console.log('simple log1:', profilePicture);
+    console.log(bio);
+    console.log(username);
+    console.log(password);
 
-    // Reset form after submission
+    const formData = new FormData();
+    formData.append("profilePicture", profilePicture);
+    formData.append("bio", bio);
+    formData.append("username", username);
+    formData.append("password", password);
+
+    console.log("formData:", formData);
+
+    for (const [key, value] of formData.entries()) {
+      console.log('What we see in the formData:',`${key}: ${value}`);
+    }
+
+    try {
+      const response = await axios.post("http://localhost:3000/api/profile", formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      setImageName(response.data.imageName)
+
+      console.log(response.data); // Log or handle the response as needed
+    } catch (error) {
+      console.error("Error saving profile information:", error);
+      // Handle error
+    }
     resetForm();
   };
 
@@ -38,13 +76,29 @@ const ProfileSetupForm = () => {
 
   const [previewURL, setPreviewURL] = useState(null);
 
+  useEffect(() => {
+    sessionStorage.setItem("username", username);
+    sessionStorage.setItem("password", password);
+  }, [username, password]);
+
+  // Retrieve username and password from session storage
+  useEffect(() => {
+    const storedUsername = sessionStorage.getItem("username");
+    const storedPassword = sessionStorage.getItem("password");
+
+    // Update the context values if they exist in session storage
+    if (storedUsername && storedPassword) {
+      setUserCredentials(storedUsername, storedPassword);
+    }
+  }, []);
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12}>
-              <Typography variant="h5" align="center">
-                Welcome to coLab!
-              </Typography>
+          <Typography variant="h5" align="center">
+            Welcome to coLab!
+          </Typography>
           <Typography variant="body1" align="center">
             To join groups, please upload a picture of yourself and enter a
             short bio.
@@ -58,7 +112,7 @@ const ProfileSetupForm = () => {
               style={{ width: "200px", height: "200px" }}
             />
           )}
-          <input type="file" accept="image/*" onChange={handleFileChange} />
+          <input type="file" name="profilePicture" accept="image/*" onChange={handleFileChange} />
         </Grid>
         <Grid item xs={12}>
           <TextField

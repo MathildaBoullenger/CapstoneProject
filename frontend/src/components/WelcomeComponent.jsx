@@ -16,8 +16,8 @@ const WelcomeComponent = () => {
   return (
     <Grid container spacing={2} direction="column" alignItems="center">
       <Grid item>
-        <Typography variant="body" align="center">
-          Welcome to Colab!
+        <Typography variant="h3" align="center">
+          Welcome to CoLab!
         </Typography>
       </Grid>
       <Grid item>

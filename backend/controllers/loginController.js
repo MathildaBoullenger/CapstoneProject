@@ -12,7 +12,7 @@ const userLogin = async (req, res) => {
 
   try {
     // Find the user by the provided username
-    const user = await Models.UsersModel.findOne({ username });
+    const user = await Models.UsersModel.findOne({ where: { username: username }, });
     console.log(2)
     // If the user is not found, respond with an error message
     if (!user) {

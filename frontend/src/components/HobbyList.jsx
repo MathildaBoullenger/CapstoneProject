@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const HobbyList = () => {
 
   const hobbies = [
-    { id: 1, name: "Hiking/Tramping", image: placeholderImage },
+    { id: 1, name: "Hiking", image: placeholderImage },
     { id: 2, name: "Camping", image: placeholderImage },
     { id: 3, name: "Fishing", image: placeholderImage },
     { id: 4, name: "Cycling", image: placeholderImage },

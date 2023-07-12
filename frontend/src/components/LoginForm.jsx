@@ -34,7 +34,13 @@ const LoginForm = () => {
       // Handle the response from the server
       console.log(response.data); // Log the response data or perform further actions
       localStorage.setItem('accessToken', response.data);
-      setUserCredentials(username, password);
+
+      const reply = await axios.get(`http://localhost:3000/api/usersId/${encodeURIComponent(username)}`);
+      const user_id = reply.data.user_id;
+      
+      setUserCredentials(username, user_id);
+      console.log('user_id after logging in:', user_id)
+
       navigate('/hobbies')
     } catch (error) {
       // Handle errors

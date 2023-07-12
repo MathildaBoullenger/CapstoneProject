@@ -24,7 +24,7 @@ function App() {
           <Route path="/hobbies" element={<HobbyList />} />
           <Route path="/hobbies/:name" element={<HobbyPage />} />
 
-          <Route exact path="/add" element={<AddActivityForm />} />
+          <Route exact path="/add-activity" element={<AddActivityForm />} />
           {/*<Route exact path="/update" element={<UpdateProfileForm />} />*/}
         </Routes>   
     </>

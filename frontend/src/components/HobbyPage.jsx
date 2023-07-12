@@ -1,26 +1,30 @@
 import { useParams } from "react-router-dom";
 import { Card, CardContent, Typography, Button } from "@mui/material";
-import AddActivityForm from "./AddActivityForm"
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
 const HobbyPage = () => {
-  const { name } = useParams();
-
-  // Sample data for the forum
-  const forumData = [
-    { id: 1, title: "Activity 1", content: "Lorem ipsum dolor sit amet." },
-    { id: 2, title: "Activity 2", content: "Lorem ipsum dolor sit amet." },
-    { id: 3, title: "Activity 3", content: "Lorem ipsum dolor sit amet." },
-  ];
-
-  const handleJoinActivity = (discussionId) => {
-    // Handle the join action for the specific discussion
-    console.log("Join Activity:", discussionId);
-  };
-
-  const handleCreateActivity = () => {
-    // Handle the create activity action
-    console.log("Create Activity");
-  };
+    const { name } = useParams();
+    const [activities, setActivities] = useState([]);
+  
+    useEffect(() => {
+      const fetchActivities = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3000/api/activities/${name}`);
+          setActivities(response.data);
+        } catch (error) {
+          console.error("Error fetching activities:", error);
+        }
+      };
+  
+      fetchActivities();
+    }, [name]);
+  
+    const handleJoinActivity = (activityId) => {
+      // Handle the join action for the specific activity
+      console.log("Join Activity:", activityId);
+    };
 
   return (
     <div>
@@ -32,19 +36,19 @@ const HobbyPage = () => {
           <Typography variant="h5" component="div">
             What's on?
           </Typography>
-          {forumData.map((discussion) => (
-            <Card key={discussion.id} variant="outlined">
+          {activities.map((activity) => (
+            <Card key={activity.activity_id} variant="outlined">
               <CardContent>
                 <Typography variant="h6" component="div">
-                  {discussion.title}
+                  {activity.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {discussion.content}
+                  {activity.activity}
                 </Typography>
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => handleJoinActivity(discussion.id)}
+                  onClick={() => handleJoinActivity(activity.id)}
                 >
                   Join
                 </Button>
@@ -54,13 +58,14 @@ const HobbyPage = () => {
         </CardContent>
       </Card>
 
+      <Link to={`/add-activity?hobby=${name}`}>
       <Button
         variant="contained"
         color="primary"
-        onClick={handleCreateActivity}
       >
         Create Activity
       </Button>
+      </Link>
     </div>
   );
 };

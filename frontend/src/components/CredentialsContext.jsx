@@ -4,35 +4,35 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [user_id, setUser_id] = useState('');
 
   useEffect(() => {
     // Load user credentials from session storage on component mount
     const storedUsername = sessionStorage.getItem('username');
-    const storedPassword = sessionStorage.getItem('password');
-    if (storedUsername && storedPassword) {
+    const storedUserId = sessionStorage.getItem('user_id');
+    if (storedUsername && storedUserId) {
       setUsername(storedUsername);
-      setPassword(storedPassword);
+      setUser_id(storedUserId);
     }
   }, []);
 
-  const setUserCredentials = (username, password) => {
+  const setUserCredentials = (username, user_id) => {
     sessionStorage.setItem('username', username);
-    sessionStorage.setItem('password', password);
+    sessionStorage.setItem('user_id', user_id);
     setUsername(username);
-    setPassword(password);
+    setUser_id(user_id);
   };
 
   const clearUserCredentials = () => {
     sessionStorage.removeItem('username');
-    sessionStorage.removeItem('password');
+    sessionStorage.removeItem('user_id');
     setUsername('');
-    setPassword('');
+    setUser_id('');
   };
 
   const userContextValue = {
     username,
-    password,
+    user_id,
     setUserCredentials,
     clearUserCredentials,
   };

@@ -46,8 +46,12 @@ const RegistrationForm = () => {
 
     try {
       await axios.post("http://localhost:3000/api/register", registrationData);
+      
       alert("Registration successful!");
-      setUserCredentials(username, password);
+      const response = await axios.get(`http://localhost:3000/api/usersId/${encodeURIComponent(username)}`);
+      const user_id = response.data.user_id;
+      
+      setUserCredentials(username, user_id);
       navigate("./profile");
     } catch (error) {
       console.error("Registration failed:", error);

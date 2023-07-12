@@ -20,7 +20,11 @@ ActivityModel.init(
         key: 'user_id' // Primary key in the referenced table
       }
     },
-    description: {
+    hobby:{
+    type: DataTypes.STRING,
+    allowNull: false
+    },
+    activity: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -31,13 +35,6 @@ ActivityModel.init(
     time: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    max_participants: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        max: 30
-      }
     }
   },
   {

@@ -19,10 +19,12 @@ app.get("/", (req, res) => {
 const PORT = process.env.DB_PORT || 8080;
 
 const {
-    usersRoutes
+    usersRoutes,
+    activityRoutes
 } = require("./routes")
 
 app.use('/api', usersRoutes)
+app.use('/api', activityRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

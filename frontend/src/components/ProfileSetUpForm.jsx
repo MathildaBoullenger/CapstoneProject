@@ -9,9 +9,9 @@ const ProfileSetupForm = () => {
   const [bio, setBio] = useState("");
 
   const navigate = useNavigate();
-  const { username, password } = useContext(UserContext);
+  const { username, user_id } = useContext(UserContext);
   console.log('first log', username);
-  console.log('second log', password);
+  console.log('second log', user_id);
 
   const handleProfilePictureChange = (file) => {
     setProfilePicture(file);

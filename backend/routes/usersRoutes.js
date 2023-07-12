@@ -7,6 +7,10 @@ router.post("/register", (req, res) => {
   controllers.registrationsController.registerUser(req.body, res);
 });
 
+router.get("/usersId/:username", (req, res) => {
+  controllers.userIdController.getUserID(req, res);
+});
+
 router.post("/login-token", (req, res) => {
   controllers.loginController.userLogin(req.body, res);
 });

@@ -15,6 +15,10 @@ router.post('/profile', upload.single('profilePicture'), (req, res) => {
   controllers.imagBioController.saveProfile(req, res);
 });
 
+router.post('/facebook', (req, res) => {
+  controllers.facebookController.addFacebook(req, res);
+});
+
 {/*}
 router.get('/images/:imageName', (req, res) => {
   controllers.imagesController.getImage(req, res);

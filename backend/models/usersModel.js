@@ -25,7 +25,7 @@ UserModel.init(
         allowNull: false
       },
       pic: {
-        type: DataTypes.BLOB,
+        type: DataTypes.STRING,
         allowNull: true
       },
       bio: {

@@ -1,12 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Typography, TextField, Button, Grid } from "@mui/material";
 import axios from "axios";
 import { UserContext } from "./CredentialsContext";
+import { useNavigate } from "react-router-dom";
 
 const ProfileSetupForm = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [bio, setBio] = useState("");
 
+  const navigate = useNavigate();
   const { username, password } = useContext(UserContext);
   console.log('first log', username);
   console.log('second log', password);
@@ -30,13 +32,11 @@ const ProfileSetupForm = () => {
     console.log('simple log1:', profilePicture);
     console.log(bio);
     console.log(username);
-    console.log(password);
 
     const formData = new FormData();
     formData.append("profilePicture", profilePicture);
     formData.append("bio", bio);
     formData.append("username", username);
-    formData.append("password", password);
 
     console.log("formData:", formData);
 
@@ -59,6 +59,7 @@ const ProfileSetupForm = () => {
       // Handle error
     }
     resetForm();
+    navigate('./facebook')
   };
 
   const handleFileChange = (event) => {

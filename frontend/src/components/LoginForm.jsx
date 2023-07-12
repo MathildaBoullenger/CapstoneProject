@@ -22,8 +22,7 @@ const LoginForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Add your login logic here, e.g., send login request to server
-
+    // login logic below, e.g., send login request to server
     const loginData = {
       username,
       password,

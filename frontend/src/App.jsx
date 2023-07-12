@@ -17,8 +17,8 @@ function App() {
           <Route exact path="/login" element={<LoginForm />} />
           <Route exact path="/signup" element={<RegistrationForm />} />
           <Route exact path="/signup/profile" element={<ProfileSetupForm />} /> {/*common route*/}
+          <Route exact path="/signup/profile/facebook" element={<FacebookAccountForm />} />
           <Route exact path="/hobbies" element={<HobbyList />} />
-          <Route exact path="/facebook" element={<FacebookAccountForm />} />
           <Route exact path="/add" element={<AddActivityForm />} />
           {/*<Route exact path="/update" element={<UpdateProfileForm />} />*/}
         </Routes>   

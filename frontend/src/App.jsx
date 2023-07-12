@@ -5,6 +5,7 @@ import ProfileSetupForm from "./components/ProfileSetUpForm";
 import RegistrationForm from "./components/RegistrationForm";
 import { Routes, Route } from "react-router-dom";
 import HobbyList from "./components/HobbyList";
+import HobbyPage from "./components/HobbyPage";
 import FacebookAccountForm from "./components/FacebookAccountForm";
 import AddActivityForm from "./components/AddActivityForm";
 /*import UpdateProfileForm from "./components/End/UpdateProfileForm";*/
@@ -18,7 +19,11 @@ function App() {
           <Route exact path="/signup" element={<RegistrationForm />} />
           <Route exact path="/signup/profile" element={<ProfileSetupForm />} /> {/*common route*/}
           <Route exact path="/signup/profile/facebook" element={<FacebookAccountForm />} />
-          <Route exact path="/hobbies" element={<HobbyList />} />
+
+          <Route path="/" element={<HobbyList />} />
+          <Route path="/hobbies" element={<HobbyList />} />
+          <Route path="/hobbies/:name" element={<HobbyPage />} />
+
           <Route exact path="/add" element={<AddActivityForm />} />
           {/*<Route exact path="/update" element={<UpdateProfileForm />} />*/}
         </Routes>   

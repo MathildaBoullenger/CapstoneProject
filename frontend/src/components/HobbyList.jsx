@@ -2,11 +2,10 @@ import React from "react";
 import HobbyTile from "./HobbyTile";
 import placeholderImage from "../assets/hobbyplaceholderimage.jpg";
 import { Grid, Typography } from "@mui/material";
-import { useState } from "react";
+import { Link } from "react-router-dom"; 
 
-const HobbyList = ({ onHobbyClick }) => {
-  const [selectedHobby, setSelectedHobby] = useState(null);
-  
+const HobbyList = () => {
+
   const hobbies = [
     { id: 1, name: "Hiking/Tramping", image: placeholderImage },
     { id: 2, name: "Camping", image: placeholderImage },
@@ -42,14 +41,14 @@ const HobbyList = ({ onHobbyClick }) => {
       <Grid container spacing={2} className="hobby-list">
         {hobbies.map((hobby) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={hobby.id}>
-            <HobbyTile
-              key={hobby.id}
-              hobby={hobby}
-              onClick={() => onHobbyClick(hobby)}
-            />
+            <Link to={`/hobbies/${hobby.name}`}>
+              <HobbyTile hobby={hobby} />
+            </Link>
           </Grid>
+
+        
         ))}
-      </Grid>
+      </Grid> 
     </>
   );
 };

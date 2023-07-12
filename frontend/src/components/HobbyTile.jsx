@@ -1,9 +1,15 @@
 import React from "react";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 
-const HobbyTile = ({ hobby, onClick }) => {
+const HobbyTile = ({ hobby, onClick, selected }) => {
+
+  const tileStyle = {
+    border: selected ? '2px solid red' : 'none',
+    // Add any other desired styles
+  };
+  
   return (
-    <Card onClick={onClick}>
+    <Card onClick={onClick} className={`hobby-tile ${selected ? 'selected' : ''}`}>
       <CardMedia
         component="img"
         height="200"

@@ -40,10 +40,7 @@ const HobbyPage = () => {
             <Card key={activity.activity_id} variant="outlined">
               <CardContent>
                 <Typography variant="h6" component="div">
-                  {activity.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {activity.activity}
+                  {activity.activity} at {activity.time} in {activity.location}
                 </Typography>
                 <Button
                   variant="contained"

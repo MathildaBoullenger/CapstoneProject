@@ -7,27 +7,60 @@ import axios from 'axios';
 const HobbyPage = () => {
     const { name } = useParams();
     const [activities, setActivities] = useState([]);
+    const user_id = sessionStorage.getItem("user_id");
   
     useEffect(() => {
-      const fetchActivities = async () => {
-        try {
-          const response = await axios.get(`http://localhost:3000/api/activities/${name}`);
-          setActivities(response.data);
-        } catch (error) {
-          console.error("Error fetching activities:", error);
-        }
-      };
+      if (user_id) {
+        const fetchActivities = async () => {
+          try {
+            const response = await axios.get(`http://localhost:3000/api/activities/${name}`);
+            const allActivities = response.data;
   
-      fetchActivities();
-    }, [name]);
+            console.log('user_id before fetching joined activities:', user_id)
   
-    const handleJoinActivity = (activityId) => {
-      // Handle the join action for the specific activity
-      console.log("Join Activity:", activityId);
+            // Fetch the user's joined activities from the backend
+            const joinedActivitiesResponse = await axios.get(`http://localhost:3000/api/joined-activities/${user_id}`);
+            const joinedActivities = joinedActivitiesResponse.data.joinedActivities;
+  
+            // Filter out the joined activities from the fetched activities
+            const filteredActivities = allActivities.filter(activity => {
+              // Check if the activity is not in the user's joined activities list
+              return !joinedActivities.some(joinedActivity => joinedActivity.activity_id === activity.activity_id);
+            });
+  
+            setActivities(filteredActivities);
+          } catch (error) {
+            console.error("Error fetching activities:", error);
+          }
+        };
+  
+        fetchActivities();
+      }
+    }, [user_id, name]);
+
+    const handleJoinActivity = async (activity_id) => {
+      try {
+
+        const joinData = {
+          user_id,
+          activity_id,
+        };
+  
+        await axios.post("http://localhost:3000/api/join-activity", joinData);
+        console.log("Joined Activity:", activity_id);
+
+        setActivities((prevActivities) =>
+        prevActivities.filter((activity) => activity.activity_id !== activity_id)
+      );
+
+        // Optionally, you can update the state or perform any additional actions after joining the activity
+      } catch (error) {
+        console.error("Error joining activity:", error);
+      }
     };
 
   return (
-    <div>
+   <div>
       <h2>coLab Space - {name}</h2>
       
       {/* Render the specific content for the hobby page */}
@@ -40,15 +73,35 @@ const HobbyPage = () => {
             <Card key={activity.activity_id} variant="outlined">
               <CardContent>
                 <Typography variant="h6" component="div">
-                  {activity.user_id}: {activity.activity} at {activity.time} in {activity.location}
+                  {activity.user_id}: {activity.activity} on {activity.time} in {activity.location}
                 </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleJoinActivity(activity.id)}
-                >
-                  Join
-                </Button>
+                {activity.joined ? (
+                  <div>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      disabled
+                    >
+                      Joined
+                    </Button>
+                    <br />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleOptOutActivity(activity.activity_id)}
+                    >
+                      Opt-Out
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleJoinActivity(activity.activity_id)}
+                  >
+                    Join
+                  </Button>
+                )}
               </CardContent>
             </Card>
           ))}
@@ -56,12 +109,12 @@ const HobbyPage = () => {
       </Card>
 
       <Link to={`/add-activity?hobby=${name}`}>
-      <Button
-        variant="contained"
-        color="primary"
-      >
-        Create Activity
-      </Button>
+        <Button
+          variant="contained"
+          color="primary"
+        >
+          Create Activity
+        </Button>
       </Link>
     </div>
   );

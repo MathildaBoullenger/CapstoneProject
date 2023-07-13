@@ -1,6 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../dbConnect'); 
 const sequelizeInstance = dbConnect.Sequelize;
+const UsersModel = require("./usersModel")
 
 class ActivityModel extends Model {}
 
@@ -44,5 +45,7 @@ ActivityModel.init(
     freezeTableName: true,
   }
 );
+
+ActivityModel.belongsTo(UsersModel, { foreignKey: "user_id" });
 
 module.exports = ActivityModel;

@@ -1,6 +1,7 @@
 const { DataTypes, Model } = require("sequelize");
 let dbConnect = require("../dbConnect");
 const sequelizeInstance = dbConnect.Sequelize;
+const ActivityModel = require("./activitiesModel")
 
 class ParticipantsModel extends Model {}
 //Sequelize will create this table if it doesn't exist on startup
@@ -28,6 +29,11 @@ ParticipantsModel.init(
         key: "activity_id", // Primary key in the referenced table
       },
     },
+    isJoined: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   {
     sequelize: sequelizeInstance,
@@ -36,5 +42,7 @@ ParticipantsModel.init(
     freezeTableName: true,
   }
 );
+
+ParticipantsModel.belongsTo(ActivityModel, { foreignKey: "activity_id" });
 
 module.exports = ParticipantsModel;

@@ -1,4 +1,4 @@
-const Models = require('../models');
+const Models = require("../models");
 
 const getActivitiesByHobby = async (req, res) => {
   const { hobby } = req.params;

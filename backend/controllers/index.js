@@ -6,6 +6,10 @@ module.exports = {
     facebookController: require("./facebookController"),
     newActivityController: require("./newActivityController"),
     getActivitiesByHobby: require("./getActivitiesByHobbyController"),
+    joinActivityController: require("./joinActivityController"),
+    optOutActivityController: require("./optOutActivityController"),
+    getJoinedActivitiesController: require("./getJoinedActivitiesController"),
+    getUserController: require("./getUserController"),
 
     imagesController: require("./imagesController")
   };

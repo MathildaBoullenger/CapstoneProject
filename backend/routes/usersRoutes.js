@@ -27,11 +27,11 @@ router.get('/user/:userId', (req, res) => {
   controllers.getUserController.getUser(req, res);
 });
 
-{/*}
 router.get('/images/:imageName', (req, res) => {
   controllers.imagesController.getImage(req, res);
 });
 
+{/*
 router.post('/api/images', (req, res) => {
   controllers.imagesController.uploadImage(req, res);
 });

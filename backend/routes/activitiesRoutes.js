@@ -22,4 +22,12 @@ router.get('/joined-activities/:user_id', (req, res) => {
   controllers.getJoinedActivitiesController.getJoinedActivities(req, res);
 });
 
+router.get('/user-activities/:user_id', (req, res) => {
+  controllers.getCreatedActivitiesController.getUserActivities(req, res);
+});
+
+router.post('/delete-activity/:activity_id', (req, res) => {
+  controllers.deleteActivityController.deleteActivity(req, res);
+});
+
 module.exports = router;

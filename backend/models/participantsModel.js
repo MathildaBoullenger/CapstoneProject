@@ -43,6 +43,4 @@ ParticipantsModel.init(
   }
 );
 
-ParticipantsModel.belongsTo(ActivityModel, { foreignKey: "activity_id" });
-
 module.exports = ParticipantsModel;

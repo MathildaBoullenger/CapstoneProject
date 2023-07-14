@@ -10,7 +10,8 @@ module.exports = {
     optOutActivityController: require("./optOutActivityController"),
     getJoinedActivitiesController: require("./getJoinedActivitiesController"),
     getUserController: require("./getUserController"),
-
-    imagesController: require("./imagesController")
+    imagesController: require("./imagesController"),
+    getCreatedActivitiesController: require("./getCreatedActivitiesController"),
+    deleteActivityController: require("./deleteActivityController")
   };
   

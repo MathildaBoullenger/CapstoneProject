@@ -28,7 +28,7 @@ const addActivity = async (req, res) => {
       return res.status(201).json({ message: 'Activity added successfully!', newActivity });
     } catch (error) {
       console.error('Registration failed:', error);
-      return res.status(500).json({ error: 'Registration failed. Please try again later.' });
+      return res.status(500).json({ error: 'Activity not added. Please try again later.' });
     }
   };
 

@@ -46,6 +46,4 @@ ActivityModel.init(
   }
 );
 
-ActivityModel.belongsTo(UsersModel, { foreignKey: "user_id" });
-
 module.exports = ActivityModel;

@@ -9,6 +9,7 @@ import HobbyPage from "./components/HobbyPage";
 import FacebookAccountForm from "./components/FacebookAccountForm";
 import AddActivityForm from "./components/AddActivityForm";
 import JoinedActivities from "./components/JoinedActivities";
+import CreatedActivities from "./components/CreatedActivities"
 /*import UpdateProfileForm from "./components/End/UpdateProfileForm";*/
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/hobbies/:name" element={<HobbyPage />} />
 
           <Route exact path="/joined" element={<JoinedActivities />} />
+          <Route exact path="/created" element={<CreatedActivities />} />
 
           <Route exact path="/add-activity" element={<AddActivityForm />} />
           {/*<Route exact path="/update" element={<UpdateProfileForm />} />*/}

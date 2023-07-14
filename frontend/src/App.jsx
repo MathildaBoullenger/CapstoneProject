@@ -9,7 +9,9 @@ import HobbyPage from "./components/HobbyPage";
 import FacebookAccountForm from "./components/FacebookAccountForm";
 import AddActivityForm from "./components/AddActivityForm";
 import JoinedActivities from "./components/JoinedActivities";
-import CreatedActivities from "./components/CreatedActivities"
+import CreatedActivities from "./components/CreatedActivities";
+import Menu from "./components/Menu";
+import UpdateProfile from "./components/UpdateProfileForm"
 /*import UpdateProfileForm from "./components/End/UpdateProfileForm";*/
 
 function App() {
@@ -28,6 +30,9 @@ function App() {
 
           <Route exact path="/joined" element={<JoinedActivities />} />
           <Route exact path="/created" element={<CreatedActivities />} />
+
+          <Route exact path="/menu" element={<Menu />} />
+          <Route exact path="/update-profile" element={<UpdateProfile />} />
 
           <Route exact path="/add-activity" element={<AddActivityForm />} />
           {/*<Route exact path="/update" element={<UpdateProfileForm />} />*/}

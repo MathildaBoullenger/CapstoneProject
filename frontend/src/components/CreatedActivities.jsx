@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Menu from "./Menu";
 
 const UserActivities = () => {
   const [userActivities, setUserActivities] = useState([]);
@@ -42,6 +43,7 @@ const UserActivities = () => {
 
   return (
     <div>
+      <Menu />
       <h3>Created Activities</h3>
       {userActivities.map((activity) => (
         <div

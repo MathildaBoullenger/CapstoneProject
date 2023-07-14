@@ -3,6 +3,7 @@ import { Card, CardContent, Typography, Button } from "@mui/material";
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import Menu from "./Menu";
 
 const HobbyPage = () => {
     const { name } = useParams();
@@ -61,6 +62,7 @@ const HobbyPage = () => {
 
   return (
    <div>
+      <Menu />
       <h2>coLab Space - {name}</h2>
       
       {/* Render the specific content for the hobby page */}

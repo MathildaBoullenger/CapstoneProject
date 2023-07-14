@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { TextField, Button, Grid } from '@mui/material';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from './CredentialsContext';
+import { UserContext } from './UserContext';
 
 const LoginForm = () => {
   const { setUserCredentials } = useContext(UserContext);

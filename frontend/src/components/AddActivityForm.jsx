@@ -2,13 +2,17 @@ import React, { useState, useContext } from 'react';
 import { TextField, Button, Grid, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { UserContext } from './CredentialsContext';
+import { UserContext } from './UserContext';
+import { useNavigate } from 'react-router-dom';
+import Menu from './Menu';
 
 const AddActivityForm = ({ onAddActivity }) => {
   const { user_id } = useContext(UserContext);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const hobbyName = searchParams.get('hobby');
+
+  const navigate = useNavigate();
 
   const [activity, setActivity] = useState('');
   const [activityLocation, setActivityLocation] = useState('');
@@ -53,6 +57,7 @@ const AddActivityForm = ({ onAddActivity }) => {
 
         // Call the onAddActivity callback if needed in the parent component
         //onAddActivity(newActivity);
+        navigate(`/hobbies/${hobbyName}`);
       } else {
         // Handle error if the request was not successful
         console.error('Error posting activity to the backend.');
@@ -63,6 +68,8 @@ const AddActivityForm = ({ onAddActivity }) => {
   };
 
   return (
+    <div>
+    <Menu />
     <form onSubmit={handleSubmit}>  
       <Grid container spacing={2} direction="column" alignItems="center">
         <Grid item xs={12}>
@@ -111,6 +118,7 @@ const AddActivityForm = ({ onAddActivity }) => {
         </Grid>
       </Grid>
     </form>
+    </div>
   );
 };
 

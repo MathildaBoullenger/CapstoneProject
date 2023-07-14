@@ -1,17 +1,17 @@
 import React, { useState, useContext } from "react";
 import { Typography, TextField, Button, Grid } from "@mui/material";
 import axios from "axios";
-import { UserContext } from "./CredentialsContext";
+import { UserContext } from "./UserContext";
 import { useNavigate } from "react-router-dom";
+import ProfilePictureUpload from "./PictureUpload";
+import BioTextField from "./BioTextField";
 
 const ProfileSetupForm = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [bio, setBio] = useState("");
 
   const navigate = useNavigate();
-  const { username, user_id } = useContext(UserContext);
-  console.log('first log', username);
-  console.log('second log', user_id);
+  const { username, user_id, setProfileInformation } = useContext(UserContext);
 
   const handleProfilePictureChange = (file) => {
     setProfilePicture(file);
@@ -29,37 +29,33 @@ const ProfileSetupForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log('simple log1:', profilePicture);
-    console.log(bio);
-    console.log(username);
-
     const formData = new FormData();
     formData.append("profilePicture", profilePicture);
     formData.append("bio", bio);
     formData.append("username", username);
 
-    console.log("formData:", formData);
-
-    for (const [key, value] of formData.entries()) {
-      console.log('What we see in the formData:',`${key}: ${value}`);
-    }
-
     try {
-      const response = await axios.post("http://localhost:3000/api/profile", formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post("http://localhost:3000/api/profile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      console.log(response.data); // Log or handle the response as needed
+      // Log or handle the response as needed
+      console.log(response.data);
+
+      // Update the user information in the context
+      setProfileInformation({
+        profilePicture,
+        bio,
+      });
+
+      resetForm();
+      navigate("./facebook");
     } catch (error) {
       console.error("Error saving profile information:", error);
       // Handle error
     }
-    resetForm();
-    navigate('./facebook')
   };
 
   const handleFileChange = (event) => {
@@ -73,7 +69,6 @@ const ProfileSetupForm = () => {
 
   const [previewURL, setPreviewURL] = useState(null);
 
-
   return (
     <form onSubmit={handleSubmit} encType="multipart/form-data">
       <Grid container spacing={2} justifyContent="center">
@@ -82,31 +77,18 @@ const ProfileSetupForm = () => {
             Welcome to coLab!
           </Typography>
           <Typography variant="body1" align="center">
-            To join groups, please upload a picture of yourself and enter a
-            short bio.
+            To join groups, please upload a picture of yourself and enter a short bio.
           </Typography>
         </Grid>
+
         <Grid item xs={12}>
-          {previewURL && (
-            <img
-              src={previewURL}
-              alt="Preview"
-              style={{ width: "200px", height: "200px" }}
-            />
-          )}
-          <input type="file" name="profilePicture" accept="image/*" onChange={handleFileChange} />
+        <ProfilePictureUpload previewURL={previewURL} handleFileChange={handleFileChange} />
         </Grid>
+
         <Grid item xs={12}>
-          <TextField
-            label="Short Bio"
-            variant="outlined"
-            value={bio}
-            onChange={handleBioChange}
-            fullWidth
-            multiline
-            rows={4}
-          />
+        <BioTextField bio={bio} handleBioChange={handleBioChange} />
         </Grid>
+
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary">
             Save

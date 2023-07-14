@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Menu from "./Menu";
 
 const JoinedActivities = () => {
   const [joinedActivities, setJoinedActivities] = useState([]);
@@ -47,6 +48,7 @@ const JoinedActivities = () => {
 
   return (
     <div style={{ maxWidth: "100%", overflowX: "auto" }}>
+    <Menu />
     <h3>Joined Activities</h3>
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {joinedActivities

@@ -48,7 +48,7 @@ const RegistrationForm = () => {
       await axios.post("http://localhost:3000/api/register", registrationData);
       
       alert("Registration successful!");
-      const response = await axios.get(`http://localhost:3000/api/usersId/${encodeURIComponent(username)}`);
+      const response = await axios.get(`http://localhost:3000/api/usersId/${username}`);
       const user_id = response.data.user_id;
       
       setUserCredentials(username, user_id);

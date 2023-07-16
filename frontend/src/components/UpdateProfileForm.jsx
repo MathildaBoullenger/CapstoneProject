@@ -35,16 +35,54 @@ const ProfileUpdatePage = () => {
   
   const [previewURL, setPreviewURL] = useState(null);
 
-   const handleProfileUpdate = () => {
-    // Handle the profile update logic, e.g., make an API call to update the profile with the updated information
-    // Pass the updated values: updatedProfilePicture, updatedBio, updatedFacebookAccount
+  const handlePicUpdate = async () => {
+    try {
+      // Simulate API call to update the profile picture
+      // Replace the API endpoint with your actual endpoint for updating the profile picture
+      const response = await axios.post('your-update-profile-picture-api-endpoint', {
+        profilePicture: updatedProfilePicture,
+      });
+  
+      // Assuming the API call is successful, update the profile picture in the context or state
+      setProfilePicture(updatedProfilePicture);
+      console.log("Profile picture updated successfully:", updatedProfilePicture);
+    } catch (error) {
+      console.error("Error updating profile picture:", error);
+    }
   };
-
-  const handleFacebookUpdate = () => {
-    // Handle the Facebook account update logic, e.g., make an API call to update the Facebook account
-    // Pass the updated value: updatedFacebookAccount
+  
+  const handleBioUpdate = async () => {
+    try {
+      // Simulate API call to update the bio
+      // Replace the API endpoint with your actual endpoint for updating the bio
+      const response = await axios.post('your-update-bio-api-endpoint', {
+        bio: updatedBio,
+      });
+  
+      // Assuming the API call is successful, update the bio in the context or state
+      setBio(updatedBio);
+      console.log("Bio updated successfully:", updatedBio);
+    } catch (error) {
+      console.error("Error updating bio:", error);
+    }
   };
-
+  
+  const handleFacebookUpdate = async () => {
+    try {
+      // Simulate API call to update the Facebook account
+      // Replace the API endpoint with your actual endpoint for updating the Facebook account
+      const response = await axios.post('your-update-facebook-account-api-endpoint', {
+        facebookAccount: updatedFacebookAccount,
+      });
+  
+      // Assuming the API call is successful, update the Facebook account in the context or state
+      setFacebookAccount(updatedFacebookAccount);
+      console.log("Facebook account updated successfully:", updatedFacebookAccount);
+    } catch (error) {
+      console.error("Error updating Facebook account:", error);
+    }
+  };
+   
   return (
     <div>
       <Menu />
@@ -54,14 +92,14 @@ const ProfileUpdatePage = () => {
         <ProfilePictureUpload
           previewURL={previewURL} handleFileChange={handleFileChange}
         />
-        <Button variant="contained" color="primary" onClick={handleProfileUpdate}>
+        <Button variant="contained" color="primary" onClick={handlePicUpdate}>
           Save Profile Picture
         </Button>
       </Grid>
 
       <BioTextField bio={updatedBio} handleBioChange={handleBioChange} />
       {/* Other sections */}
-      <Button variant="contained" color="primary" onClick={handleProfileUpdate}>
+      <Button variant="contained" color="primary" onClick={handleBioUpdate}>
         Save Bio
       </Button>
 

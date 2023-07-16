@@ -31,6 +31,10 @@ router.get('/images/:imageName', (req, res) => {
   controllers.imagesController.getImage(req, res);
 });
 
+router.get('/participant/:user_id', (req, res) => {
+  controllers.participantController.getParticipant(req, res);
+});
+
 {/*
 router.post('/api/images', (req, res) => {
   controllers.imagesController.uploadImage(req, res);

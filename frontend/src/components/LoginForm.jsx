@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { TextField, Button, Grid } from '@mui/material';
+import { TextField, Button, Grid, Typography } from '@mui/material';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
@@ -55,8 +55,17 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2} direction="column" alignItems="center">
         <Grid item xs={12}>
+
+        <Grid item>
+        <Typography variant="h5" align="center" color="secondary">
+          Welcome back!
+        </Typography>
+      </Grid>
+
+<br></br>
+
           <TextField
-            label="username"
+            label="Username"
             variant="outlined"
             value={username}
             onChange={handleUsernameChange}

@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import { Card, CardContent, Typography, Button } from "@mui/material";
+import { Card, CardContent, Typography, Button, Grid } from "@mui/material";
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Menu from "./Menu";
 
-const HobbyPage = () => {
+  const HobbyPage = () => {
     const { name } = useParams();
     const [activities, setActivities] = useState([]);
     const user_id = sessionStorage.getItem("user_id");
@@ -15,55 +15,58 @@ const HobbyPage = () => {
         const fetchActivities = async () => {
           try {
             const response = await axios.get(`http://localhost:3000/api/activities/${name}`);
-            const allActivities = response.data;
-  
-            console.log('user_id before fetching joined activities:', user_id)
-  
-            // Fetch the user's joined activities from the backend
-            const joinedActivitiesResponse = await axios.get(`http://localhost:3000/api/joined-activities/${user_id}`);
-            const joinedActivities = joinedActivitiesResponse.data.joinedActivities;
-  
-            // Filter out the joined activities from the fetched activities
-            const filteredActivities = allActivities.filter(activity => {
-              // Check if the activity is not in the user's joined activities list
-              return !joinedActivities.some(joinedActivity => joinedActivity.activity_id === activity.activity_id);
-            });
-  
-            setActivities(filteredActivities);
+            const activitiesData = response.data;
+    
+            const participantsResponse = await axios.get(`http://localhost:3000/api/participant/${user_id}`);
+            const participantsData = participantsResponse.data;
+            console.log('participants data:', participantsData);
+    
+            const joinedActivityIds = participantsData.map(participant => participant.activity_id);
+    
+            const unjoinedActivities = activitiesData.filter(activity => !joinedActivityIds.includes(activity.activity_id));
+    
+            setActivities(unjoinedActivities);
+            console.log(unjoinedActivities);
           } catch (error) {
             console.error("Error fetching activities:", error);
           }
         };
-  
+    
         fetchActivities();
       }
     }, [user_id, name]);
+    
 
-    const handleJoinActivity = async (activity_id) => {
-      try {
-
-        const joinData = {
-          user_id,
-          activity_id,
-        };
+  const handleJoinActivity = async (activity_id) => {
+    try {
+      const joinData = {
+        user_id,
+        activity_id,
+      };
   
-        await axios.post("http://localhost:3000/api/join-activity", joinData);
-        console.log("Joined Activity:", activity_id);
+      await axios.post("http://localhost:3000/api/join-activity", joinData);
+      console.log("Joined Activity:", activity_id);
 
-        setActivities((prevActivities) =>
+      setActivities((prevActivities) =>
         prevActivities.filter((activity) => activity.activity_id !== activity_id)
       );
 
-        // Optionally, you can update the state or perform any additional actions after joining the activity
-      } catch (error) {
-        console.error("Error joining activity:", error);
-      }
-    };
+      // Optionally, you can update the state or perform any additional actions after joining the activity
+    } catch (error) {
+      console.error("Error joining activity:", error);
+    }
+  };
 
   return (
-   <div>
+    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "16px" }}>
       <Menu />
-      <h2>coLab Space - {name}</h2>
+
+      <Grid item>
+        <Typography variant="h5" align="center" color="secondary">
+          <h2>coLab Space 
+          <br></br>{name}</h2>
+        </Typography>
+      </Grid>
       
       {/* Render the specific content for the hobby page */}
       <Card variant="outlined">
@@ -72,10 +75,10 @@ const HobbyPage = () => {
             What's on?
           </Typography>
           {activities.map((activity) => (
-            <Card key={activity.activity_id} variant="outlined">
+            <Card key={activity.activity_id} style={{ width: "100%", marginBottom: "16px" }} variant="outlined">
               <CardContent>
                 <Typography variant="h6" component="div">
-                  {activity.user_id}: {activity.activity} on {activity.time} in {activity.location}
+                  {activity.user.username}: {activity.activity} on {activity.time} in {activity.location}
                 </Typography>
                 {activity.joined ? (
                   <div>
@@ -109,6 +112,8 @@ const HobbyPage = () => {
           ))}
         </CardContent>
       </Card>
+
+      <br></br>
 
       <Link to={`/add-activity?hobby=${name}`}>
         <Button

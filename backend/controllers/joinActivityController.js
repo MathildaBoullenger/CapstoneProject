@@ -8,6 +8,7 @@ const joinActivity = async (req, res) => {
     const existingParticipant = await Models.ParticipantsModel.findOne({
       where: { user_id: user_id, activity_id: activity_id },
     });
+    console.log('test:', user_id, activity_id)
 
     if (existingParticipant) {
       // User is already joined to the activity, return an error response

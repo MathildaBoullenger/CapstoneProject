@@ -5,8 +5,21 @@ const getActivitiesByHobby = async (req, res) => {
   console.log('request:', hobby)
 
   try {
-    const activities = await Models.ActivitiesModel.findAll({ where:{hobby: req.params.hobby }});
-    res.json(activities);
+    const activities = await Models.ActivitiesModel.findAll({
+      where: { hobby: req.params.hobby },
+      include: [
+        {
+          model: Models.UsersModel,
+          attributes: ["user_id", "username", "email"],
+        },
+      ],
+    });
+
+    // Convert the activities data to JSON format
+    const activitiesData = activities.map((activity) => activity.toJSON());
+
+    // Now each activity object will have nested User data directly accessible as 'User'
+    res.json(activitiesData);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
@@ -15,9 +28,3 @@ const getActivitiesByHobby = async (req, res) => {
 module.exports = {
   getActivitiesByHobby,
 };
-
-
-
-
-
-

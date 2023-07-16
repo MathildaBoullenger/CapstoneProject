@@ -29,7 +29,7 @@ UserModel.init(
         allowNull: true
       },
       bio: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(600),
         allowNull: true
       },
       facebook: {

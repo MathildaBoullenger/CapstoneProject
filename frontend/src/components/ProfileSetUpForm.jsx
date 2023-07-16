@@ -71,16 +71,13 @@ const ProfileSetupForm = () => {
 
   return (
     <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <Grid container spacing={2} justifyContent="center">
+      <Grid container spacing={2} direction="column" justifyContent="center">
         <Grid item xs={12}>
-          <Typography variant="h5" align="center">
-            Welcome to coLab!
-          </Typography>
-          <Typography variant="body1" align="center">
-            To join groups, please upload a picture of yourself and enter a short bio.
-          </Typography>
-        </Grid>
-
+        <Typography variant="h5" align="center" color="secondary">
+        Please add a profile picture and a we words about yourself.
+        </Typography>
+      </Grid>
+<br></br>
         <Grid item xs={12}>
         <ProfilePictureUpload previewURL={previewURL} handleFileChange={handleFileChange} />
         </Grid>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { TextField, Button, Grid } from "@mui/material";
+import { TextField, Button, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
@@ -66,25 +66,35 @@ const RegistrationForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} justifyContent="center">
-        <Grid item xs={12}>
-          <TextField
-            label="Username"
-            variant="outlined"
-            value={username}
-            onChange={handleUsernameChange}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Email"
-            variant="outlined"
-            value={email}
-            onChange={handleEmailChange}
-            fullWidth
-          />
-        </Grid>
+    <Grid container spacing={2} direction="column" alignItems="center">
+      <Grid item xs={12}>
+        <Typography variant="h5" align="center" color="secondary">
+          Welcome to coLab! <br></br>Connect through hobbies for real-life friendships!
+        </Typography>
+      </Grid>
+
+<br></br>
+
+      <Grid item xs={12}>
+        <TextField
+          label="Username"
+          variant="outlined"
+          value={username}
+          onChange={handleUsernameChange}
+          fullWidth
+        />
+      </Grid>
+
+      <Grid item xs={12}>
+        <TextField
+          label="Email"
+          variant="outlined"
+          value={email}
+          onChange={handleEmailChange}
+          fullWidth
+        />
+      </Grid>
+
         <Grid item xs={12}>
           <TextField
             label="Password"
@@ -95,6 +105,7 @@ const RegistrationForm = () => {
             fullWidth
           />
         </Grid>
+
         <Grid item xs={12}>
           <TextField
             label="Confirm Password"
@@ -105,6 +116,7 @@ const RegistrationForm = () => {
             fullWidth
           />
         </Grid>
+
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
             Register

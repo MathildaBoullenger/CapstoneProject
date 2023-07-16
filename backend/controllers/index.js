@@ -12,6 +12,7 @@ module.exports = {
     getUserController: require("./getUserController"),
     imagesController: require("./imagesController"),
     getCreatedActivitiesController: require("./getCreatedActivitiesController"),
-    deleteActivityController: require("./deleteActivityController")
+    deleteActivityController: require("./deleteActivityController"),
+    participantController: require("./participantController")
   };
   

@@ -1,4 +1,6 @@
 import "./App.css";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./components/AppTheme";
 import WelcomeComponent from "./components/WelcomeComponent";
 import LoginForm from "./components/LoginForm";
 import ProfileSetupForm from "./components/ProfileSetUpForm";
@@ -17,6 +19,7 @@ import UpdateProfile from "./components/UpdateProfileForm"
 function App() {
   return (
     <>
+    <ThemeProvider theme={theme}>
         <Routes>
           <Route exact path="/" element={<WelcomeComponent />} />
           <Route exact path="/login" element={<LoginForm />} />
@@ -37,6 +40,7 @@ function App() {
           <Route exact path="/add-activity" element={<AddActivityForm />} />
           {/*<Route exact path="/update" element={<UpdateProfileForm />} />*/}
         </Routes>   
+        </ThemeProvider>
     </>
   );
 }

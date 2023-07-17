@@ -1,13 +1,25 @@
 const Models = require('../models');
 
-const getUserID = async (req, res) => {
+const getUserData = async (req, res) => {
   const { username } = req.params;
-  console.log('logging the username on server side:', username)
+  console.log('logging the username on server side:', username);
+
   try {
-    const user = await Models.UsersModel.findOne({ where:{username: req.params.username }});
-    
+    const user = await Models.UsersModel.findOne({ where: { username } });
+
     if (user) {
-      res.json({ user_id: user.user_id });
+      // Extract the relevant user information
+      const { user_id, pic, bio, facebook } = user;
+      console.log('info from backend:', pic, bio, facebook)
+
+      // Return the user information in the response
+      res.json({
+        user_id,
+        profilePicture: pic,
+        bio,
+        facebookAccount: facebook,
+        // Add other user information here...
+      });
     } else {
       res.status(404).json({ error: 'User not found' });
     }
@@ -17,5 +29,5 @@ const getUserID = async (req, res) => {
 };
 
 module.exports = {
-  getUserID,
+  getUserData,
 };

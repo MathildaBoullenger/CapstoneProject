@@ -8,7 +8,7 @@ router.post("/register", (req, res) => {
 });
 
 router.get("/usersId/:username", (req, res) => {
-  controllers.userIdController.getUserID(req, res);
+  controllers.userIdController.getUserData(req, res);
 });
 
 router.post("/login-token", (req, res) => {
@@ -16,7 +16,7 @@ router.post("/login-token", (req, res) => {
 });
 
 router.post('/profile', upload.single('profilePicture'), (req, res) => {
-  controllers.imagBioController.saveProfile(req, res);
+  controllers.imageBioController.saveProfile(req, res);
 });
 
 router.post('/facebook', (req, res) => {
@@ -34,6 +34,11 @@ router.get('/images/:imageName', (req, res) => {
 router.get('/participant/:user_id', (req, res) => {
   controllers.participantController.getParticipant(req, res);
 });
+
+router.post("/update-pic", upload.single('profilePicture'), (req, res) => {
+  controllers.updateProfileController.updatePic(req, res);
+});
+
 
 {/*
 router.post('/api/images', (req, res) => {

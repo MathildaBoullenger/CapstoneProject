@@ -23,7 +23,7 @@ const ProfileSetupForm = () => {
 
   const resetForm = () => {
     setProfilePicture(null);
-    setBio("");
+    setBio(null);
   };
 
   const handleSubmit = async (event) => {
@@ -45,10 +45,11 @@ const ProfileSetupForm = () => {
       console.log(response.data);
 
       // Update the user information in the context
-      setProfileInformation({
+      setProfileInformation(
         profilePicture,
         bio,
-      });
+        null
+      );
 
       resetForm();
       navigate("./facebook");

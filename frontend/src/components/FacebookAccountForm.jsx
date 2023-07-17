@@ -8,7 +8,7 @@ const FacebookAccountForm = () => {
   const [facebookAccount, setFacebookAccount] = useState('');
 
   const navigate = useNavigate();
-  const { username, password, setProfileInformation } = useContext(UserContext);
+  const { username, password, profilePicture, bio, setProfileInformation } = useContext(UserContext);
   console.log('first fb log', username);
   console.log('second fb log', password);
 
@@ -32,7 +32,7 @@ const FacebookAccountForm = () => {
       console.log('Response:', response.data);
 
       // Update the Facebook account information in the UserContext
-      setProfileInformation(null, null, facebookAccount);
+      setProfileInformation(profilePicture, bio, facebookAccount);
 
       setFacebookAccount('');
       navigate('/hobbies');

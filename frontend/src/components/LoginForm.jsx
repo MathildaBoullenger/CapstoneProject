@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
 
 const LoginForm = () => {
-  const { setUserCredentials } = useContext(UserContext);
+  const { setUserCredentials, setProfileInformation } = useContext(UserContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -35,12 +35,14 @@ const LoginForm = () => {
       console.log(response.data); // Log the response data or perform further actions
       localStorage.setItem('accessToken', response.data);
 
-      const reply = await axios.get(`http://localhost:3000/api/usersId/${encodeURIComponent(username)}`);
-      const user_id = reply.data.user_id;
-      
-      setUserCredentials(username, user_id);
-      console.log('user_id after logging in:', user_id)
+      const userDataResponse = await axios.get(`http://localhost:3000/api/usersId/${encodeURIComponent(username)}`);
+      const userData = userDataResponse.data;
 
+      setUserCredentials(username, userData.user_id, userData.profilePicture, userData.bio, userData.facebookAccount);
+      console.log('user_id after logging in:', userData.user_id);
+
+      setProfileInformation(userData.profilePicture, userData.bio, userData.facebookAccount);
+      console.log('profile information after logging in:',userData.profilePicture, userData.bio, userData.facebookAccount )
       navigate('/hobbies')
     } catch (error) {
       // Handle errors

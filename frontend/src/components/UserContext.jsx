@@ -6,7 +6,7 @@ export const UserProvider = ({ children }) => {
   const [username, setUsername] = useState('');
   const [user_id, setUser_id] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
-  const [bio, setBio] = useState('');
+  const [bio, setBio] = useState(null);
   const [facebookAccount, setFacebookAccount] = useState('');
 
   useEffect(() => {
@@ -64,6 +64,8 @@ export const UserProvider = ({ children }) => {
     setProfileInformation,
     clearUserCredentials,
   };
+
+  console.log('userContext:', userContextValue)
 
   return <UserContext.Provider value={userContextValue}>{children}</UserContext.Provider>;
 };

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Menu from "./Menu";
+import ActivityTile from "./ActivityTile";
+import { Typography, Box, Button } from "@mui/material";
+import "./Styles.css"; // external sylesheet
 
 const UserActivities = () => {
   const [userActivities, setUserActivities] = useState([]);
@@ -42,89 +45,35 @@ const UserActivities = () => {
   };
 
   return (
-    <div>
+    <>
       <Menu />
-      <h3>Created Activities</h3>
-      {userActivities.map((activity) => (
-        <div
-          key={activity.activity_id}
-          style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            marginBottom: "10px",
-          }}
-        >
-          <p>Activity: {activity.activity}</p>
-          <p>Location: {activity.location}</p>
-          <p>Time: {activity.time}</p>
-          {/* Render other properties of the activity object as needed */}
-          <div style={{ maxWidth: "100%", overflowX: "auto" }}>
-            <h4>Participants:</h4>
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
-              {activity.participants.map((participant) => (
-                <div
-                  key={participant.participant_id}
-                  style={{
-                    border: "1px solid #ccc",
-                    padding: "10px",
-                    marginBottom: "10px",
-                    flex: "0 0 100%",
-                    maxWidth: "100%",
-                    boxSizing: "border-box",
-                    lineHeight: "1.2", // Adjust line height here
-                  }}
-                >
-                  <p>
-                    <strong style={{ fontSize: "14px" }}>User:</strong>{" "}
-                    {participant.user.username}
-                  </p>
-                  <p>
-                    <strong style={{ fontSize: "14px" }}>Email:</strong>{" "}
-                    {participant.user.email}
-                  </p>
-                  {participant.user.pic && (
-                    <img
-                      src={`http://localhost:3000/api/${participant.user.pic}`}
-                      alt="Profile Pic"
-                      style={{
-                        maxWidth: "200px",
-                        maxHeight: "200px",
-                      }}
-                    />
-                  )}
-                  <p>
-                    <strong style={{ fontSize: "14px" }}>
-                      Facebook profile:
-                    </strong>{" "}
-                    <a
-                      href={participant.user.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: "blue", textDecoration: "underline" }}
-                    >
-                      {participant.user.facebook}
-                    </a>
-                  </p>
-                </div>
-              ))}
+      <Box mx="auto" maxWidth="1200px" p={3}>
+        <Typography variant="h3" className="createdActivities-title">
+          Created Activities
+        </Typography>
+
+        {userActivities.map((activity) => (
+          <div
+            className="createdActivities-background"
+            key={activity.activity_id}
+          >
+            <div style={{ flex: "1 1 100%" }}>
+              <ActivityTile activity={activity} />
+            </div>
+            <div className="cancel-activity-button">
+              <Button
+                onClick={() => handleDeleteActivity(activity.activity_id)}
+                variant="contained"
+                color="secondary"
+              >
+                Cancel Activity
+              </Button>
             </div>
           </div>
-          <button
-            onClick={() => handleDeleteActivity(activity.activity_id)}
-            style={{
-              padding: "5px 10px",
-              backgroundColor: "red",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Cancel Activity
-          </button>
-        </div>
-      ))}
-    </div>
+        ))}
+      </Box>
+    </>
   );
-}  
+};
 
 export default UserActivities;

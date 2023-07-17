@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Menu from "./Menu";
+import { Typography, Grid, Button, Box } from "@mui/material"; // Import MUI components
+import "./Styles.css"; // Import the external stylesheet
+import { Card, CardContent, CardActions } from "@mui/material";
 
 const JoinedActivities = () => {
   const [joinedActivities, setJoinedActivities] = useState([]);
-  const [userData, setUserData] = useState([]);
   const user_id = sessionStorage.getItem("user_id");
   console.log("user id before sending to the backend joined:", user_id);
 
@@ -16,8 +18,7 @@ const JoinedActivities = () => {
         );
         console.log(response.data);
 
-        const { userData, joinedActivities } = response.data;
-        setUserData(userData);
+        const { joinedActivities } = response.data;
         setJoinedActivities(joinedActivities);
       } catch (error) {
         console.error("Error fetching joined activities:", error);
@@ -47,98 +48,98 @@ const JoinedActivities = () => {
   };
 
   return (
-    <div style={{ maxWidth: "100%", overflowX: "auto" }}>
-    <Menu />
-    <h3>Joined Activities</h3>
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
-      {joinedActivities
-        .filter((activityData) => activityData.isJoined)
-        .map((activityData) => {
-          const user = userData.find(
-            (user) => user.user_id === activityData.user_id
-          );
-          return (
-            <div
-              key={activityData.activity.activity_id}
-              style={{
-                border: "1px solid #ccc",
-                padding: "10px",
-                marginBottom: "10px",
-                flex: "0 0 100%",
-                maxWidth: "100%",
-                boxSizing: "border-box",
-                lineHeight: "1.2", // Adjust line height here
-              }}
-            >
-              <p>
-                <strong style={{ fontSize: "14px" }}>Activity:</strong>{" "}
-                {activityData.activity.activity}
-              </p>
-              <p>
-                <strong style={{ fontSize: "14px" }}>Location:</strong>{" "}
-                {activityData.activity.location}
-              </p>
-              <p>
-                <strong style={{ fontSize: "14px" }}>Time:</strong>{" "}
-                {activityData.activity.time}
-              </p>
-              {/* Render other properties of the activity object as needed */}
-              {user && (
-                <div>
-                  <p>
-                    <strong style={{ fontSize: "14px" }}>User:</strong>{" "}
-                    {user.username}
-                  </p>
-                  <p>
-                    <strong style={{ fontSize: "14px" }}>Email:</strong>{" "}
-                    {user.email}
-                  </p>
-                  {user.pic && (
-                    <img
-                      src={`http://localhost:3000/api/${user.pic}`}
-                      alt="Profile Pic"
-                      style={{
-                        maxWidth: "200px",
-                        maxHeight: "200px",
-                      }}
-                    />
-                  )}
-                  <p>
-                    <strong style={{ fontSize: "14px" }}>
-                      Facebook profile:
-                    </strong>{" "}
-                    <a
-                      href={user.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: "blue", textDecoration: "underline" }}
-                    >
-                      {user.facebook}
-                    </a>
-                  </p>
-                </div>
-              )}
-              <button
-                onClick={() =>
-                  handleOptOutActivity(activityData.activity.activity_id)
-                }
-                style={{
-                  padding: "5px 10px",
-                  backgroundColor: "red",
-                  color: "white",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                Opt Out
-              </button>
-            </div>
-          );
-        })}
-    </div>
-  </div>
-);
-};
+    <>
+      <Menu />
+      <Box mx="auto" maxWidth="1200px" p={3}>
+        <Typography variant="h3" className="createdActivities-title">
+          Joined Activities
+        </Typography>
 
+        <div className="joinedActivities-container">
+          <Grid container spacing={2}>
+            {joinedActivities
+              .filter((activityData) => activityData.isJoined)
+              .map((activityData) => {
+                const user = activityData.activity.user;
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    key={activityData.activity.activity_id}
+                  >
+                    <Card>
+                      <CardContent>
+                        <Typography variant="body1">
+                          <strong>Activity:</strong>{" "}
+                          {activityData.activity.activity}
+                        </Typography>
+                        <Typography variant="body1">
+                          <strong>Location:</strong>{" "}
+                          {activityData.activity.location}
+                        </Typography>
+                        <Typography variant="body1">
+                          <strong>Time:</strong> {activityData.activity.time}
+                        </Typography>
+                        {/* Render other properties of the activity object as needed */}
+                        {user ? (
+                          <div className="joinedActivities-userInfo">
+                            <Typography variant="body1">
+                              <strong>Created by:</strong> {user.username}
+                            </Typography>
+                            <Typography variant="body1">
+                              <strong>Email:</strong> {user.email}
+                            </Typography>
+                            {user.pic ? (
+                              <img
+                                src={`http://localhost:3000/api/${user.pic}`}
+                                alt="Profile Pic"
+                                className="joinedActivities-avatar"
+                              />
+                            ) : null}
+                            <Typography variant="body1">
+                              <strong>Connect on Facebook:</strong>{" "}
+                              <a
+                                href={user.facebook}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="joinedActivities-facebookLink"
+                              >
+                                {user.facebook}
+                              </a>
+                            </Typography>
+                          </div>
+                        ) : null}
+                      </CardContent>
+                      <CardActions>
+                        <Box
+                          display="flex"
+                          justifyContent="center"
+                          width="100%"
+                        >
+                          <Button
+                            onClick={() =>
+                              handleOptOutActivity(
+                                activityData.activity.activity_id
+                              )
+                            }
+                            variant="contained"
+                            color="secondary"
+                          >
+                            Opt Out
+                          </Button>
+                        </Box>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                );
+              })}
+          </Grid>
+        </div>
+      </Box>
+    </>
+  );
+};
 
 export default JoinedActivities;

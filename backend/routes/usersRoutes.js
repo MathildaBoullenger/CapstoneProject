@@ -39,6 +39,13 @@ router.post("/update-pic", upload.single('profilePicture'), (req, res) => {
   controllers.updateProfileController.updatePic(req, res);
 });
 
+router.post("/update-bio", (req, res) => {
+  controllers.updateProfileController.updateBio(req, res);
+});
+
+router.post("/update-facebook", (req, res) => {
+  controllers.updateProfileController.updateFacebook(req, res);
+});
 
 {/*
 router.post('/api/images', (req, res) => {

@@ -46,11 +46,13 @@ const RegistrationForm = () => {
 
     try {
       await axios.post("http://localhost:3000/api/register", registrationData);
-      
+
       alert("Registration successful!");
-      const response = await axios.get(`http://localhost:3000/api/usersId/${username}`);
+      const response = await axios.get(
+        `http://localhost:3000/api/usersId/${username}`
+      );
       const user_id = response.data.user_id;
-      
+
       setUserCredentials(username, user_id);
       navigate("./profile");
     } catch (error) {
@@ -66,34 +68,35 @@ const RegistrationForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-    <Grid container spacing={2} direction="column" alignItems="center">
-      <Grid item xs={12}>
-        <Typography variant="h5" align="center" color="secondary">
-          Welcome to coLab! <br></br>Connect through hobbies for real-life friendships!
-        </Typography>
-      </Grid>
+      <Grid container spacing={2} direction="column" alignItems="center">
+        <Grid item xs={12}>
+          <Typography variant="h5" align="center" color="secondary">
+            Welcome to coLab! <br></br>Connect through hobbies for real-life
+            friendships!
+          </Typography>
+        </Grid>
 
-<br></br>
+        <br></br>
 
-      <Grid item xs={12}>
-        <TextField
-          label="Username"
-          variant="outlined"
-          value={username}
-          onChange={handleUsernameChange}
-          fullWidth
-        />
-      </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Username"
+            variant="outlined"
+            value={username}
+            onChange={handleUsernameChange}
+            fullWidth
+          />
+        </Grid>
 
-      <Grid item xs={12}>
-        <TextField
-          label="Email"
-          variant="outlined"
-          value={email}
-          onChange={handleEmailChange}
-          fullWidth
-        />
-      </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Email"
+            variant="outlined"
+            value={email}
+            onChange={handleEmailChange}
+            fullWidth
+          />
+        </Grid>
 
         <Grid item xs={12}>
           <TextField

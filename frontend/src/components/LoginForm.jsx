@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react';
-import { TextField, Button, Grid, Typography } from '@mui/material';
+import React, { useState, useContext } from "react";
+import { TextField, Button, Grid, Typography } from "@mui/material";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from './UserContext';
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 const LoginForm = () => {
   const { setUserCredentials, setProfileInformation } = useContext(UserContext);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -27,44 +27,63 @@ const LoginForm = () => {
       username,
       password,
     };
-    console.log(loginData)
+    console.log(loginData);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/login-token', loginData);
+      const response = await axios.post(
+        "http://localhost:3000/api/login-token",
+        loginData
+      );
       // Handle the response from the server
       console.log(response.data); // Log the response data or perform further actions
-      localStorage.setItem('accessToken', response.data);
+      localStorage.setItem("accessToken", response.data);
 
-      const userDataResponse = await axios.get(`http://localhost:3000/api/usersId/${encodeURIComponent(username)}`);
+      const userDataResponse = await axios.get(
+        `http://localhost:3000/api/usersId/${encodeURIComponent(username)}`
+      );
       const userData = userDataResponse.data;
 
-      setUserCredentials(username, userData.user_id, userData.profilePicture, userData.bio, userData.facebookAccount);
-      console.log('user_id after logging in:', userData.user_id);
+      setUserCredentials(
+        username,
+        userData.user_id,
+        userData.profilePicture,
+        userData.bio,
+        userData.facebookAccount
+      );
+      console.log("user_id after logging in:", userData.user_id);
 
-      setProfileInformation(userData.profilePicture, userData.bio, userData.facebookAccount);
-      console.log('profile information after logging in:',userData.profilePicture, userData.bio, userData.facebookAccount )
-      navigate('/hobbies')
+      setProfileInformation(
+        userData.profilePicture,
+        userData.bio,
+        userData.facebookAccount
+      );
+      console.log(
+        "profile information after logging in:",
+        userData.profilePicture,
+        userData.bio,
+        userData.facebookAccount
+      );
+      navigate("/hobbies");
     } catch (error) {
       // Handle errors
       console.error(error);
     }
     // Reset the form after submission
-    setUsername('');
-    setPassword('');
+    setUsername("");
+    setPassword("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2} direction="column" alignItems="center">
         <Grid item xs={12}>
+          <Grid item>
+            <Typography variant="h5" align="center" color="secondary">
+              Welcome back!
+            </Typography>
+          </Grid>
 
-        <Grid item>
-        <Typography variant="h5" align="center" color="secondary">
-          Welcome back!
-        </Typography>
-      </Grid>
-
-<br></br>
+          <br></br>
 
           <TextField
             label="Username"
@@ -91,8 +110,6 @@ const LoginForm = () => {
         </Grid>
       </Grid>
     </form>
-
-    
   );
 };
 

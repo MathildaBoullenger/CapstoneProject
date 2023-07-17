@@ -1,0 +1,69 @@
+:root {
+  --primary-color: #fa8334;
+  --secondary-color: #000000;
+  --tertiary-color: #fffd77;
+  --tertiary-color-dark: #ffe882;
+}
+
+/* CreatedActivityTile.css */
+
+.createdActivities-title {
+    padding: 50px; 
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 50px;
+  }
+
+.activity-tile-participants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; 
+}
+
+.activity-tile-participant-card {
+  flex: 1 0 200px; 
+  max-width: 1000px; 
+}
+
+.createdActivities-background {
+  background: var(--tertiary-color);
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cancel-activity-button {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+
+/* JoinedActivityTile.css */
+
+.joinedActivities-title {
+    margin-bottom: 50px; /* Add space between the title and the cards */
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+.joinedActivities-container {
+    padding: 20px;
+    background-color: #fffd77;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+  }
+
+.joinedActivities-avatar {
+  max-width: 100%;
+  height: auto;
+}

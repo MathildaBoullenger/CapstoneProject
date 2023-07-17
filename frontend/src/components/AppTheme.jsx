@@ -1,3 +1,5 @@
+// Global theme shared acros the app
+
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -6,7 +8,7 @@ const theme = createTheme({
       main: "#FA8334 ", //pumpkin
     },
     secondary: {
-      main: "#000000" //midnightBlue //003366
+      main: "#000000" //or midnightBlue? 003366
     },
     tertiary: {
       main: "#fffd77", //icterine
@@ -15,9 +17,9 @@ const theme = createTheme({
 
   },
   typography: {
-    fontFamily: "'Quicksand', sans-serif", // The default font weight (400) will be used
-    fontWeightMedium: 500, // Font weight for "medium" (500)
-    fontWeightBold: 700, // Font weight for "bold" (700)
+    fontFamily: "'Quicksand', sans-serif", // default font weight (400) will be used
+    fontWeightMedium: 500, // "medium" (500)
+    fontWeightBold: 700, // "bold" (700)
   },
 });
 

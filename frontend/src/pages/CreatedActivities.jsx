@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Menu from "./Menu";
-import ActivityTile from "./ActivityTile";
+import Menu from "../components/Menu";
+import ActivityTile from "../components/ActivityTile";
 import { Typography, Box, Button } from "@mui/material";
-import "./Styles.css"; // external sylesheet
+import "../components/Styles.css"; // external sylesheet
 
 const UserActivities = () => {
   const [userActivities, setUserActivities] = useState([]);
@@ -14,7 +14,8 @@ const UserActivities = () => {
     const fetchUserActivities = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/user-activities/${user_id}`
+          `${import.meta.env.VITE_BASE_URL}/user-activities/${user_id}`
+          //`http://localhost:3000/api/user-activities/${user_id}`
         );
         console.log(response.data);
 
@@ -30,7 +31,8 @@ const UserActivities = () => {
   const handleDeleteActivity = async (activity_id) => {
     try {
       await axios.post(
-        `http://localhost:3000/api/delete-activity/${activity_id}`
+        `${import.meta.env.VITE_BASE_URL}/delete-activity/${activity_id}`
+        //`http://localhost:3000/api/delete-activity/${activity_id}`
       );
       console.log("Deleted Activity:", activity_id);
 

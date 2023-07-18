@@ -6,7 +6,7 @@ export const UserProvider = ({ children }) => {
   const [username, setUsername] = useState("");
   const [user_id, setUser_id] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
-  const [bio, setBio] = useState(null);
+  const [bio, setBio] = useState("");
   const [facebookAccount, setFacebookAccount] = useState("");
 
   useEffect(() => {

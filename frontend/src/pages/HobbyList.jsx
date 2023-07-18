@@ -1,5 +1,5 @@
 import React from "react";
-import HobbyTile from "./HobbyTile";
+import HobbyTile from "../components/HobbyTile";
 import { Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import hikingImage from "../assets/hikingImage-min.jpg";

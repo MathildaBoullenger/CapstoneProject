@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Menu from "./Menu";
+import Menu from "../components/Menu";
 import { Typography, Grid, Button, Box } from "@mui/material"; // Import MUI components
-import "./Styles.css"; // Import the external stylesheet
+import "../components/Styles.css"; // Import the external stylesheet
 import { Card, CardContent, CardActions } from "@mui/material";
 
 const JoinedActivities = () => {
@@ -14,7 +14,8 @@ const JoinedActivities = () => {
     const fetchJoinedActivities = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/joined-activities/${user_id}`
+          //`http://localhost:3000/api/joined-activities/${user_id}`
+          `${import.meta.env.VITE_BASE_URL}/joined-activities/${user_id}`
         );
         console.log(response.data);
 
@@ -30,7 +31,10 @@ const JoinedActivities = () => {
 
   const handleOptOutActivity = async (activity_id) => {
     try {
-      await axios.post("http://localhost:3000/api/opt-out-activity", {
+      await axios.post(
+        //"http://localhost:3000/api/opt-out-activity"
+        `${import.meta.env.VITE_BASE_URL}/opt-out-activity`
+        , {
         activity_id: activity_id,
         user_id: user_id,
       });
@@ -93,7 +97,7 @@ const JoinedActivities = () => {
                             </Typography>
                             {user.pic ? (
                               <img
-                                src={`http://localhost:3000/api/${user.pic}`}
+                                src={`${import.meta.env.VITE_BASE_URL}/${user.pic}`} //`http://localhost:3000/api/${user.pic}`
                                 alt="Profile Pic"
                                 className="joinedActivities-avatar"
                               />

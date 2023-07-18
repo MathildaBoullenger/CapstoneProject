@@ -1,19 +1,19 @@
 import "./App.css";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./components/AppTheme";
-import WelcomeComponent from "./components/WelcomeComponent";
-import LoginForm from "./components/LoginForm";
-import ProfileSetupForm from "./components/ProfileSetUpForm";
-import RegistrationForm from "./components/RegistrationForm";
+import WelcomeComponent from "./pages/WelcomeComponent";
+import LoginForm from "./pages/LoginForm";
+import ProfileSetupForm from "./pages/ProfileSetUpForm";
+import RegistrationForm from "./pages/RegistrationForm";
 import { Routes, Route } from "react-router-dom";
-import HobbyList from "./components/HobbyList";
-import HobbyPage from "./components/HobbyPage";
-import FacebookAccountForm from "./components/FacebookAccountForm";
-import AddActivityForm from "./components/AddActivityForm";
-import JoinedActivities from "./components/JoinedActivities";
-import CreatedActivities from "./components/CreatedActivities";
+import HobbyList from "./pages/HobbyList";
+import HobbyPage from "./pages/HobbyPage";
+import FacebookAccountForm from "./pages/FacebookAccountForm";
+import AddActivityForm from "./pages/AddActivityForm";
+import JoinedActivities from "./pages/JoinedActivities";
+import CreatedActivities from "./pages/CreatedActivities";
 import Menu from "./components/Menu";
-import UpdateProfile from "./components/UpdateProfileForm";
+import UpdateProfile from "./pages/UpdateProfileForm";
 /*import UpdateProfileForm from "./components/End/UpdateProfileForm";*/
 
 function App() {

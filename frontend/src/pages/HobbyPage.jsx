@@ -3,8 +3,8 @@ import { Card, CardContent, Typography, Button, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Menu from "./Menu";
-import "./Styles.css";
+import Menu from "../components/Menu";
+import "../components/Styles.css";
 
 const HobbyPage = () => {
   const { name } = useParams();
@@ -16,12 +16,14 @@ const HobbyPage = () => {
       const fetchActivities = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:3000/api/activities/${name}`
+            //`http://localhost:3000/api/activities/${name}`
+            `${import.meta.env.VITE_BASE_URL}/activities/${name}`
           );
           const activitiesData = response.data;
 
           const participantsResponse = await axios.get(
-            `http://localhost:3000/api/participant/${user_id}`
+            //`http://localhost:3000/api/participant/${user_id}`
+            `${import.meta.env.VITE_BASE_URL}/participant/${user_id}`
           );
           const participantsData = participantsResponse.data;
           console.log("participants data:", participantsData);
@@ -52,7 +54,9 @@ const HobbyPage = () => {
         activity_id,
       };
 
-      await axios.post("http://localhost:3000/api/join-activity", joinData);
+      await axios.post( //"http://localhost:3000/api/join-activity"
+      `${import.meta.env.VITE_BASE_URL}/join-activity`
+      , joinData);
       console.log("Joined Activity:", activity_id);
 
       setActivities((prevActivities) =>

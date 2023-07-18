@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { TextField, Button, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../components/UserContext";
 
 const RegistrationForm = () => {
   const { setUserCredentials } = useContext(UserContext);
@@ -45,11 +45,14 @@ const RegistrationForm = () => {
     console.log(registrationData);
 
     try {
-      await axios.post("http://localhost:3000/api/register", registrationData);
+      await axios.post( //"http://localhost:3000/api/register"
+      `${import.meta.env.VITE_BASE_URL}/register`,
+      registrationData);
 
       alert("Registration successful!");
       const response = await axios.get(
-        `http://localhost:3000/api/usersId/${username}`
+      `${import.meta.env.VITE_BASE_URL}/usersId/${username}`
+        //`http://localhost:3000/api/usersId/${username}`
       );
       const user_id = response.data.user_id;
 

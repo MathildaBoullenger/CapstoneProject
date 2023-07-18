@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 import { TextField, Button, Grid, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../components/UserContext";
 import { useNavigate } from "react-router-dom";
-import Menu from "./Menu";
+import Menu from "../components/Menu";
 
 const AddActivityForm = ({ onAddActivity }) => {
   const { user_id } = useContext(UserContext);
@@ -48,7 +48,8 @@ const AddActivityForm = ({ onAddActivity }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/new-activity",
+        `${import.meta.env.VITE_BASE_URL}/new-activity`,
+        //"http://localhost:3000/api/new-activity",
         newActivity
       );
 

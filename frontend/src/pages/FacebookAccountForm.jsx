@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Typography, TextField, Button, Grid } from "@mui/material";
 import axios from "axios";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../components/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const FacebookAccountForm = () => {
@@ -27,7 +27,8 @@ const FacebookAccountForm = () => {
       };
 
       // saves Facebook account information in database and context
-      await axios.post("http://localhost:3000/api/facebook", facebookData);
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/facebook`, facebookData);
+      //"http://localhost:3000/api/facebook"
       // console.log('Response:', response.data);
 
       // Update the Facebook account information in the UserContext

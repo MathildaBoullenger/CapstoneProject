@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { TextField, Button, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../components/UserContext";
 
 const LoginForm = () => {
   const { setUserCredentials, setProfileInformation } = useContext(UserContext);
@@ -31,7 +31,8 @@ const LoginForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/login-token",
+        `${import.meta.env.VITE_BASE_URL}/login-token`,
+        //"http://localhost:3000/api/login-token"
         loginData
       );
       // Handle the response from the server
@@ -39,7 +40,8 @@ const LoginForm = () => {
       localStorage.setItem("accessToken", response.data);
 
       const userDataResponse = await axios.get(
-        `http://localhost:3000/api/usersId/${encodeURIComponent(username)}`
+        `${import.meta.env.VITE_BASE_URL}/usersId/${username}`
+        //`http://localhost:3000/api/usersId/${username}`
       );
       const userData = userDataResponse.data;
 

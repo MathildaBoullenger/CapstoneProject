@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { Typography, Button, Grid } from "@mui/material";
 import axios from "axios";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../components/UserContext";
 import { useNavigate } from "react-router-dom";
-import ProfilePictureUpload from "./PictureUpload";
-import BioTextField from "./BioTextField";
+import ProfilePictureUpload from "../components/PictureUpload";
+import BioTextField from "../components/BioTextField";
 
 const ProfileSetupForm = () => {
   const [profilePicture, setProfilePicture] = useState(null);
@@ -36,7 +36,8 @@ const ProfileSetupForm = () => {
 
     try {
       await axios.post(
-        "http://localhost:3000/api/profile",
+        `${import.meta.env.VITE_BASE_URL}//profile`  //"http://localhost:3000/api/profile"
+        ,
         formData,
         {
           headers: {

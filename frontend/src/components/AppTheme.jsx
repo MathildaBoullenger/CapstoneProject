@@ -1,4 +1,4 @@
-// Global theme shared acros the app
+// Global theme shared across the app
 
 import { createTheme } from "@mui/material/styles";
 

@@ -33,7 +33,8 @@ return (
 
             {participant?.user?.pic ? (
               <img
-              src={`${import.meta.env.BACKEND_API_URL}/images/${participant.user.pic}`}
+              src={`${import.meta.env.VITE_BASE_URL}/${participant.user.pic}`}
+              //src={`http://localhost:3000/api${participant.user.pic}`}
                 alt="Profile Pic"
                 style={{
                   maxWidth: "200px",

@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "./UserContext";
-import ProfilePictureUpload from "./PictureUpload";
-import BioTextField from "./BioTextField";
-import FacebookAccountField from "./FacebookAccountTextField";
+import { UserContext } from "../components/UserContext";
+import ProfilePictureUpload from "../components/PictureUpload";
+import BioTextField from "../components/BioTextField";
+import FacebookAccountField from "../components/FacebookAccountTextField";
 import { Typography, Button, Grid } from "@mui/material";
-import Menu from "./Menu";
+import Menu from "../components/Menu";
 import axios from "axios";
 
 const ProfileUpdatePage = () => {
@@ -31,7 +31,7 @@ const ProfileUpdatePage = () => {
         const previewURL = URL.createObjectURL(profilePicture);
         setPreviewURL(previewURL);
       } else {
-        setPreviewURL(`${import.meta.env.BACKEND_API_URL}/${profilePicture}`);
+        setPreviewURL(`${import.meta.env.VITE_BASE_URL}/${profilePicture}`);
       }
     }
   }, [profilePicture]);
@@ -80,7 +80,8 @@ const ProfileUpdatePage = () => {
       formData.append("user_id", user_id);
 
       const response = await axios.post(
-        "http://localhost:3000/api/update-pic",
+        //"http://localhost:3000/api/update-pic"
+        `${import.meta.env.VITE_BASE_URL}/update-pic`,
         formData,
         {
           headers: {
@@ -102,7 +103,8 @@ const ProfileUpdatePage = () => {
 
   const handleBioUpdate = async () => {
     try {
-      await axios.post("http://localhost:3000/api/update-bio", {
+      await axios.post( //"http://localhost:3000/api/update-bio"
+      `${import.meta.env.VITE_BASE_URL}/update-bio`, {
         bio: updatedBio,
         user_id: user_id,
       });
@@ -117,7 +119,8 @@ const ProfileUpdatePage = () => {
 
   const handleFacebookUpdate = async () => {
     try {
-      await axios.post("http://localhost:3000/api/update-facebook", {
+      await axios.post( //"http://localhost:3000/api/update-facebook"
+      `${import.meta.env.VITE_BASE_URL}/update-facebook`, {
         facebook: updatedFacebookAccount,
         user_id: user_id,
       });

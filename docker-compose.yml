@@ -1,0 +1,19 @@
+version: '2.0'  # Use the appropriate version of Docker Compose
+
+services:
+  frontend:
+    image: mathildab/frontend-image:latest
+    build: ./frontend
+    ports:
+      - "80:5173"  # maps port 5174 inside the container to port 80 on the host machine
+  backend:
+    image: mathildab/backend-image:latest
+    build: ./backend
+    ports:
+      - "3000:3000"  # maps port 3000 inside the container to port 3000 on the host machine
+      - "3306:3306"
+
+
+
+    
+

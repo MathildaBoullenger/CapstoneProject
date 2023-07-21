@@ -20,24 +20,24 @@ To install and run the CoLab app, follow these steps:
 
 References / tools
 
-AWS EC2 instance
-AWS RDS
-Axios
-Bcrypt for password hashing
-Docker 
-Docker-compose
-DockerHub
-Dotenv
-Express
-Github
-JsonWebToken
-Material UI
-Multer Middleware for image upload
-MySQL database
-Node.js
-React
-Sequelize
-Vite
+AWS EC2 instance,
+AWS RDS,
+Axios,
+Bcrypt for password hashing,
+Docker,
+Docker-compose,
+DockerHub,
+Dotenv,
+Express,
+Github,
+JsonWebToken,
+Material UI,
+Multer Middleware for image upload,
+MySQL database,
+Node.js,
+React,
+Sequelize,
+Vite,
 Visual Studio Code
 
 

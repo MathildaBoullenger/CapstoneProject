@@ -1,8 +1,18 @@
 const { DataTypes, Model } = require("sequelize");
 let dbConnect = require("../dbConnect");
 const sequelizeInstance = dbConnect.Sequelize;
+const bcrypt = require("bcrypt");
 
-class UserModel extends Model {}
+class UserModel extends Model {
+  async validPassword(password) {
+    console.log("Input Password:", password);
+    console.log("Stored Hashed Password:", this.password);
+    const isPasswordValid = await bcrypt.compare(password, this.password);
+    console.log("Password Validity:", isPasswordValid);
+    return isPasswordValid;
+  }
+}  
+
 //Sequelize will create this table if it doesn't exist on startup
 UserModel.init(
   {

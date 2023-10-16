@@ -17,6 +17,9 @@ const Menu = () => (
       <Button component={Link} to="/update-profile" color="inherit">
         Update My Profile
       </Button>
+      <Button component={Link} to="/logout" color="inherit">
+        Logout
+      </Button>     
     </Toolbar>
   </AppBar>
 );

@@ -31,40 +31,14 @@ const LoginForm = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/login-token`,
-        //"http://localhost:3000/api/login-token"
+        `${import.meta.env.VITE_BASE_URL}/login`,
+        //"http://localhost:3000/api/login"
         loginData
       );
       // Handle the response from the server
       console.log(response.data); // Log the response data or perform further actions
       localStorage.setItem("accessToken", response.data);
 
-      const userDataResponse = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/usersId/${username}`
-        //`http://localhost:3000/api/usersId/${username}`
-      );
-      const userData = userDataResponse.data;
-
-      setUserCredentials(
-        username,
-        userData.user_id,
-        userData.profilePicture,
-        userData.bio,
-        userData.facebookAccount
-      );
-      console.log("user_id after logging in:", userData.user_id);
-
-      setProfileInformation(
-        userData.profilePicture,
-        userData.bio,
-        userData.facebookAccount
-      );
-      console.log(
-        "profile information after logging in:",
-        userData.profilePicture,
-        userData.bio,
-        userData.facebookAccount
-      );
       navigate("/hobbies");
     } catch (error) {
       // Handle errors

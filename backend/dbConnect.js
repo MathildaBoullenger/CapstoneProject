@@ -1,5 +1,6 @@
 "use strict";
 const { Sequelize } = require("sequelize");
+require("dotenv").config();
 //Sequelize is a package that abstracts out the need to write SQL queries,
 //relying instead on their models to do it for you
 const sequelize = new Sequelize(

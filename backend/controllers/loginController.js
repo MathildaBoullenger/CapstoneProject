@@ -1,53 +1,39 @@
 "use strict";
-const Models = require("../models");
-const bcrypt = require("bcrypt");
+const passport = require("passport");
 const jwt = require('jsonwebtoken');
-
 require("dotenv").config();
 
-const userLogin = async (req, res) => {
-  
-  const { username, password } = req;
-  console.log('first log');
-
-  try {
-    // Find the user by the provided username
-    const user = await Models.UsersModel.findOne({ where: { username: username }, });
-    console.log(2)
-    // If the user is not found, respond with an error message
+// Your Passport.js local authentication middleware
+const authenticateUser = (req, res, next) => {
+  console.log('login controller req, res, next', req, res, next)
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      console.error("Login error:", err);
+      return res.status(500).json({ message: "Internal server error" });
+    }
     if (!user) {
       return res.status(401).json({ message: "Invalid username or password" });
     }
 
-    // Compare the provided password with the stored hashed password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log(3)
-
-    // If the password is invalid, respond with an error message
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid username or password" });
-    }
-
-    // Password is valid, generate and return an access token
-    const accessToken = generateAccessToken(username);
+    // You can handle the user object here
+    // For example, you can generate an access token and send a response
+    const accessToken = generateAccessToken(user.username);
     return res.status(200).json({ accessToken });
-  } catch (error) {
-    console.error("Login error:", error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
+  })(req, res, next);
 };
 
+
 function generateAccessToken(username) {
-    const payload = {
-        username: username
-      };
-    
-      const secretKey = process.env.JWT_SECRET; // Replace with your secret key
-      const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
-    
-      return token;
+  const payload = {
+    username: username
+  };
+
+  const secretKey = process.env.JWT_SECRET; // Replace with your secret key
+  const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+
+  return token;
 }
 
 module.exports = {
-  userLogin,
+  authenticateUser,
 };

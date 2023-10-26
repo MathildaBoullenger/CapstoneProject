@@ -1,7 +1,6 @@
 module.exports = {
     registrationsController: require("./registrationsController"),
     userIdController: require("./userIdController"),
-    loginController: require("./loginController"),
     imageBioController: require("./imageBioController"),
     facebookController: require("./facebookController"),
     newActivityController: require("./newActivityController"),

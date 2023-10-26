@@ -11,13 +11,20 @@ const HobbyPage = () => {
   const [activities, setActivities] = useState([]);
   const user_id = sessionStorage.getItem("user_id");
 
+  // josh - get and use jwt token for authed routes
+  const authToken = sessionStorage.getItem("authToken");
+  const requestHeaders = {
+    Authorization: `Bearer ${authToken}`, // Replace with your actual token
+  };
+
   useEffect(() => {
     if (user_id) {
       const fetchActivities = async () => {
         try {
           const response = await axios.get(
-            //`http://localhost:3000/api/activities/${name}`
-            `${import.meta.env.VITE_BASE_URL}/activities/${name}`
+            `${import.meta.env.VITE_BASE_URL}/activities/${name}`,
+            // josh - including auth token header in request here
+            { requestHeaders }
           );
           const activitiesData = response.data;
 
@@ -54,9 +61,11 @@ const HobbyPage = () => {
         activity_id,
       };
 
-      await axios.post( //"http://localhost:3000/api/join-activity"
-      `${import.meta.env.VITE_BASE_URL}/join-activity`
-      , joinData);
+      await axios.post(
+        //"http://localhost:3000/api/join-activity"
+        `${import.meta.env.VITE_BASE_URL}/join-activity`,
+        joinData
+      );
       console.log("Joined Activity:", activity_id);
 
       setActivities((prevActivities) =>

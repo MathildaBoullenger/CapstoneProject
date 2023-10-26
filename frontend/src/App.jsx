@@ -6,6 +6,8 @@ import LoginForm from "./pages/LoginForm";
 import ProfileSetupForm from "./pages/ProfileSetUpForm";
 import RegistrationForm from "./pages/RegistrationForm";
 import { Routes, Route } from "react-router-dom";
+import { Fragment } from "react";
+import PrivateRoute from "./PrivateRoute";
 import HobbyList from "./pages/HobbyList";
 import HobbyPage from "./pages/HobbyPage";
 import FacebookAccountForm from "./pages/FacebookAccountForm";
@@ -19,6 +21,7 @@ import UpdateProfile from "./pages/UpdateProfileForm";
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <Fragment>
       <Routes>
         <Route exact path="/" element={<WelcomeComponent />} />
         <Route exact path="/login" element={<LoginForm />} />
@@ -35,6 +38,7 @@ function App() {
           element={<FacebookAccountForm />}
         />
         {/* <Route path="/" element={<HobbyList />} /> */}
+        <Route exact path='/' element={<PrivateRoute/>}>
         <Route path="/hobbies" element={<HobbyList />} />
         <Route path="/hobbies/:name" element={<HobbyPage />} />
         <Route exact path="/joined" element={<JoinedActivities />} />
@@ -43,7 +47,9 @@ function App() {
         <Route exact path="/update-profile" element={<UpdateProfile />} />
         <Route exact path="/add-activity" element={<AddActivityForm />} />
         {/*<Route exact path="/update" element={<UpdateProfileForm />} />*/}
+        </Route>
       </Routes>
+      </Fragment>
     </ThemeProvider>
   );
 }

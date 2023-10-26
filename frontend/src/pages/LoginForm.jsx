@@ -32,12 +32,12 @@ const LoginForm = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/login`,
-        //"http://localhost:3000/api/login"
         loginData
       );
-      // Handle the response from the server
-      console.log(response.data); // Log the response data or perform further actions
-      localStorage.setItem("accessToken", response.data);
+      // josh - store token in session storage
+      console.log(response)
+      const jwtToken = response.data.token;
+      sessionStorage.setItem("authToken", jwtToken);
 
       navigate("/hobbies");
     } catch (error) {

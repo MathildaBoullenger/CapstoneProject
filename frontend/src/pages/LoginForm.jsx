@@ -27,16 +27,18 @@ const LoginForm = () => {
       username,
       password,
     };
-    console.log(loginData);
+    // console.log(loginData);
 
+    // we make an http request from the client to the server. 
+    // Specifically to the login route. We also attach the loginData because we need to check if it is in the DB.
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/login`,
         loginData
       );
-      // josh - store token in session storage
-      console.log(response)
-      const jwtToken = response.data.token;
+      // now we want to store the token generated in session storage so we can use it to verify subsequent requests.
+      // console.log('response to login request', response)
+      const jwtToken = response.data.token; // the exact location of the token can be seen when looking at the structure of what the backend returned. 
       sessionStorage.setItem("authToken", jwtToken);
 
       navigate("/hobbies");

@@ -39,7 +39,7 @@ const PrivateRoute = () => {
   }, [authToken]);
 
   if (!isAuthenticated) {
-    return <Navigate to="/" ></Navigate>
+    return <Navigate to="/hobbies" ></Navigate>
     
   }
 

@@ -27,7 +27,7 @@ router.post("/login", async (req, res) => {
     }
 
     // If the password is valid, generate a token
-    const token = jwt.sign({ id: user.username }, "your-secret-key"); // Sign the token with your secret key
+    const token = jwt.sign({ id: user.username }, secretKey); // Sign the token with your secret key
     console.log("Generated token:", token);
 
     res.json({ user, token });
